@@ -27,9 +27,14 @@
   </div>
   
   <script id="nav-template" type="text/x-handlebars-template">
+    
     <div class="nav-searchbar">
-      <input class="nav-searchbar-input" type="text">
+      {{#if data.searchTerm}}
+      <input id="input-nav-search" class="input-search" type="text" value="{{data.searchTerm}}">
+      <button id="button-nav-search" class="button-search"><i class="fas fa-search"></i></button>
+      {{/if}}
     </div>
+    
     <div class="nav-loginSignup">
       <div class="nav-loginSignup-user">
         <span class="button-username">Chikoom</span>
@@ -44,7 +49,7 @@
         <h1 id="home-header">OnLife</h1>
         <h2 id="home-slogan">The gate to your online learning life</h2>
         <input id="input-home-search" class="input-search" type="text" placeholder="Search for online course" />
-        <button id="button-home-search" class="button-serach"><i class="fas fa-search"></i></button>
+        <button id="button-home-search" class="button-search"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </script>
@@ -72,6 +77,8 @@
       {{/each}}
     </div>
   </script>
+
+
   <script id="course-template" type="text/x-handlebars-template">
     <div class="course-container-inner">
       <button id="button-back-to-search" class="back-button">BACK TO RESULTS</button>
@@ -104,6 +111,8 @@
       </div>
     </div>
   </script>
+
+
   <script id="user-template" type="text/x-handlebars-template">
     <div class="user-container-inner">
       <h1 class="user-container-username">{{data.username}}</h1>
@@ -116,6 +125,8 @@
       <hr />
     </div>
   </script>
+
+
   <script id="userCourses-template" type="text/x-handlebars-template">
     <div class="user-courses-inner">
       {{#each data}}
