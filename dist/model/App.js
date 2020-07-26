@@ -1,4 +1,69 @@
-export class App {
+import { AppService } from '../model/APPService.js'
+import { CourseList } from '../model/CourseList.js'
 
+export class App {
+  constructor(){
+    this.appService = new AppService()
+    this.currentLoggedUser = {}
+    this.searchCourseList = new CourseList()
+    this.currentSingleCourse = {}
+  }
+
+  getSearchResults = (searchQuery) => {
+    // appService.fetchSearchResultsFromDB
+    this.searchCourseList.courses = dummyCourses
+    this.searchCourseList.searchTerm = searchQuery
+    return {
+      courses: this.searchCourseList.getAllCourses(false),
+      searchTerm: this.searchCourseList.searchTerm
+    }
+  }
+
+  getSingleCourse = (courseId) => {
+    console.log(courseId)
+    return this.searchCourseList.getCourseById(courseId, isUser)
+  }
 }
-console.log('App loaded')
+
+
+
+const dummyCourses = [{
+  _id: '3423v32fdv34v34vt',
+  providerCourseId: "435345346",
+  name: "Javascript for Dummies",
+  slug: "The great course ever",
+  description: "The great course ever The great course ever The great course ever The great course ever The great course ever The great course ever The great course ever",
+  price: 500,
+  currency: "USD",
+  provider: {
+      name: "Udemy",
+      homepageURL: "www.udemy.com",
+      iconURL: "https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg"
+  },
+  language: "EN-US",
+  subtitlesLanguages: ["EN-US", "HE-IL"],
+  lessons: [{name: "Lesson 1", description: "String String String"}, {name: "Lesson 2", description: "String String String"}],
+  imageURL: "https://img-a.udemycdn.com/course/480x270/851712_fc61_5.jpg",
+  videoURL: "https://img-a.udemycdn.com/course/480x270/851712_fc61_5.jpg",
+  courseURL: "https://www.udemy.com/course/the-complete-javascript-course/" 
+},
+{
+  _id: '3423v32fdv34v34vt',
+  providerCourseId: "435345346",
+  name: "Javascript for Experts",
+  slug: "The worst course ever",
+  description: "The worst course ever The worst course ever The worst course ever The worst course ever The worst course ever The worst course ever The worst course ever",
+  price: 200,
+  currency: "USD",
+  provider: {
+      name: "Udemy",
+      homepageURL: "www.udemy.com",
+      iconURL: "https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg"
+  },
+  language: "EN-US",
+  subtitlesLanguages: ["EN-US", "HE-IL"],
+  lessons: [{name: "Lesson 1", description: "String String String"}, {name: "Lesson 2", description: "String String String"}],
+  imageURL: "https://img-a.udemycdn.com/course/480x270/851712_fc61_5.jpg",
+  videoURL: "https://img-a.udemycdn.com/course/480x270/851712_fc61_5.jpg",
+  courseURL: "https://www.udemy.com/course/the-complete-javascript-course/" 
+}]

@@ -22,6 +22,7 @@ export class Render {
       case 'nav':
         break
       case 'home':
+        $('.nav-searchbar').empty()
         $('.search-container').empty()
         $('.course-container').empty()
         $('.user-container').empty()
