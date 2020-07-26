@@ -16,7 +16,7 @@ mongoose.connect("mongodb+srv://onlife_admin:0NL!feD8Pa55@onlife.lb5bu.mongodb.n
 const app = express()
 
 app.use("/api/user", userRouter);
-app.use("/api/user/courses", coursesRouter);
+app.use("/api/courses", coursesRouter);
 
 app.use(express.static(path.join(__dirname, '../dist')))
 app.use(express.static(path.join(__dirname, 'node_modules')))
