@@ -3,9 +3,9 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
-const handleSearch = function(){
+const handleSearch = async function(){
   const searchQuery = $(this).siblings('.input-search').val()
-  const searchResults = app.getSearchResults(searchQuery)
+  const searchResults = await app.getSearchResults(searchQuery)
   renderer.render('search', { 
                               courses: searchResults.courses,
                               pageNumber:1,
@@ -21,11 +21,11 @@ const handleSingleCourse = function(event){
   renderer.render('course', singleCourse)
 }
 
-const handleUsernameClick = function(event){
+const handleUsernameClick = async function(event){
   event.preventDefault()
   console.log('username')
-  const userData = app.getCurrentUserData()
-  const userCourses = app.getCurrentUserCourses()
+  const userData = await app.getCurrentUserData()
+  const userCourses = await app.getCurrentUserCourses()
   renderer.render('user', userData)
   renderer.render('userCourses', userCourses)
 }
