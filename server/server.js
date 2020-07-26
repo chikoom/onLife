@@ -9,7 +9,6 @@ const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
 
 require('dotenv').config()
-mongoose.connect("mongodb+srv://onlife_admin:0NL!feD8Pa55@onlife.lb5bu.mongodb.net/onlife?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 const Crawler = require('./crawler/Crawler')
 
 require('dotenv').config()
@@ -21,7 +20,7 @@ app.use("/api/user", userRouter);
 app.use("/api/courses", coursesRouter);
 
 app.use(express.static(path.join(__dirname, '../dist')))
-app.use(express.static(path.join(__dirname, 'node_modules')))
+app.use(express.static(path.join(__dirname, '../node_modules')))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
