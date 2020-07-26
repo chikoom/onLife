@@ -43,7 +43,7 @@
   </script>
 
   <script id="home-template" type="text/x-handlebars-template">
-    <div class="home-inner-container">
+    <div class="home-inner-container centered">
       <div id="middle-conatiner">
         <img id="home-logo" src="style/assets/web-logo-svg-07.svg">
         <h1 id="home-header">OnLife</h1>
@@ -55,7 +55,7 @@
   </script>
 
   <script id="search-template" type="text/x-handlebars-template">
-    <div class="search-inner-container">
+    <div class="search-inner-container centered">
       {{#each data.courses}}
         <div class="search-result-container" data-course-id="{{_id}}">
           <img class="search-result-image" src="{{imageURL}}" />
@@ -80,7 +80,7 @@
 
 
   <script id="course-template" type="text/x-handlebars-template">
-    <div class="course-container-inner">
+    <div class="course-container-inner centered">
       <button id="button-back-to-search" class="back-button">BACK TO RESULTS</button>
       <div class="course-container-top">
         <h1 class="course-container-name">{{ data.name }}</h1>
@@ -114,7 +114,7 @@
 
 
   <script id="user-template" type="text/x-handlebars-template">
-    <div class="user-container-inner">
+    <div class="user-container-inner centered">
       <h1 class="user-container-username">{{data.username}}</h1>
       <hr />
       <div class="user-container-analytics">
@@ -128,15 +128,15 @@
 
 
   <script id="userCourses-template" type="text/x-handlebars-template">
-    <div class="user-courses-inner">
+    <div class="user-courses-inner centered">
       {{#each data}}
         <div class="user-courses-course">
           <div class="user-course-image-container">
             <img class="user-course-image" src="{{course.imageURL}}" />
             <h3 class="user-course-title">{{course.name}}</h3>
-            <div class="user-course-provider-container">
+            <div class="user-course-provider-container provider-container">
               <a class="user-course-provider-link" href="{{course.provider.homepageURL}}" target="_blank">
-                <img class="user-course-provider-icon" src="{{course.provider.iconURL}}" />
+                <img class="user-course-provider-icon provider-icon" src="{{course.provider.iconURL}}" />
                 <span class="user-course-provider-by">by</span>
                 <span class="user-course-provider-name">{{course.provider.name}}</span>
               </a>

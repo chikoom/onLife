@@ -7,6 +7,10 @@ body {
   padding: 0;
   margin: 0;
 }
+.centered{
+  max-width: 1000px;
+  margin: 0 auto;
+}
 /** NAV BAR **/
 nav{
     display: grid;
@@ -98,10 +102,10 @@ nav{
 .search-result-button{
     cursor: pointer;
 }
-.search-result-provider-container{
+.search-result-provider-container, .provider-container{
     grid-area: prv;
 }
-.search-result-provider-icon{
+.search-result-provider-icon, .provider-icon{
     height:20px;
 }
 .search-result-buttons{
@@ -109,4 +113,47 @@ nav{
 }
 
 /** SINGLE COURSE **/
+
+
+/** USER PAGE **/
+.user-courses-course{
+    width: 29%;
+}
+.user-course-image-container{
+    position: relative;
+}
+.user-course-image{
+    width:100%;
+}
+.user-course-provider-container{
+    position: absolute;
+    top:0;
+    right:0;
+    backg
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
