@@ -51,7 +51,15 @@ catch (error) {
 
 router.get("/courses/:userId", async (req, res) => {
     let { userId } = req.params
-    let courses = await User.find({'_id': userId}, {'courses': 1}).populate('courses.course')
+    let courses = await User
+        .findOne({_id: userId})
+        .populate({
+            path: 'courses.course',
+            populate: {
+                path: 'provider'
+            }
+        })
+    
     res.send(courses)
 }); 
 

@@ -7,18 +7,13 @@ const Provider = require('./models/Provider')
 const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
+
+require('dotenv').config()
+mongoose.connect("mongodb+srv://onlife_admin:0NL!feD8Pa55@onlife.lb5bu.mongodb.net/onlife?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 const Crawler = require('./crawler/Crawler')
 
 require('dotenv').config()
 mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const crawler = new Crawler()
-crawler
-    .Crawl(crawler.templates[0].url)
-    .then((d) => d.forEach(c => {
-        const course = new Course(c)
-        course.save()
-    }))
 
 const app = express()
 
@@ -35,9 +30,6 @@ const { PORT } = process.env
 app.listen(PORT, () => {
 console.log(`Server is up on port ${ PORT }`)
 })
-
-
-
 
 
 
