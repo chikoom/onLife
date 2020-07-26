@@ -1,12 +1,11 @@
 export class CourseList {
-  constructor(){
-    this.courses = []
+  constructor(courses, isUser){
+    this.isUser = false || isUser
+    this.courses = courses || []
     this.searchTerm = ""
   }
   getAllCourses(isUser){
-    if(!isUser){
-      return this.courses
-    }
+    return this.courses
   }
   getCourseById(courseId, isUser){
     if(!isUser){
