@@ -48,11 +48,19 @@ catch (error) {
 }
 });
 
+
+router.get("/courses/:userId", async (req, res) => {
+    let { userId } = req.params
+    let courses = await User.find({'_id': userId}, {'courses': 1}).populate('courses.course')
+    res.send(courses)
+}); 
+
 module.exports = router
 
-//   GET /
-// gets user info from DB
-// returns { userId, username, numberOfCourses, completedCourses,overallProgress (avg progress) }
-// if can't find user returns { error: can't find user }
-// if no courses returns { username, 0, 0, 0 }
-// if error returns { error: error getting user info }
+
+
+
+
+
+
+
