@@ -58,5 +58,10 @@ export class Render {
     console.log('Renderer Clearing the filters')
   }
 }
-console.log('Render loaded')
+
+Handlebars.registerHelper('progressBar', function(opts) {
+  let decNumber = opts.fn(this)
+  decNumber = decNumber*100
+  return decNumber
+})
 
