@@ -7,11 +7,18 @@ const Provider = require('./models/Provider')
 const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
+const Crawler = require('./crawler/Crawler')
 
 require('dotenv').config()
 mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })
 
-
+const crawler = new Crawler()
+crawler
+    .Crawl(crawler.templates[0].url)
+    .then((d) => d.forEach(c => {
+        const course = new Course(c)
+        course.save()
+    }))
 
 const app = express()
 

@@ -23,7 +23,7 @@ class Crawler {
     }
 
     async Crawl(url) {
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({headless: false})
         const mainPage = await browser.newPage()
         await mainPage.goto(url, { waitUntil: 'networkidle2' })
         await mainPage.evaluate(() => {
@@ -41,7 +41,7 @@ class Crawler {
             .filter(a => a !== 'https://business.udemy.com/request-demo/?ref=right-rail&locale=en_US')
             .slice(0, 10)
         
-        list.forEach(p => test2(p, browser))
+        return await Promise.all(list.map(p => this.SingleCourseScrape(browser, this.templates[0].shortUrl, p, this.templates[0].parseFnc)))
     }
 }
 
