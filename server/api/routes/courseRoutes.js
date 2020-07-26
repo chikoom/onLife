@@ -5,9 +5,11 @@ const Course = require("../../models/Course");
 const router = express.Router();
 
 
-router.get("/courses", async (req, res) => {
-    let { searchQuery } = req.body.searchQuery
-    let courses = await Courses.find({'name': {"$regex": "Alex"}}, {'courses': 1}).populate('courses.course')
+router.get("/", async (req, res) => {
+    console.log(req.query)
+    let searchQuery = req.query.q
+    console.log(searchQuery)
+    let courses = await Course.find({'name': {"$regex": searchQuery, "$options": "i"}}).populate('provider').limit(10)
     res.send(courses)
 }); 
 
