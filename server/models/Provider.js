@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProviderSchema = new Schema({
-  id: Number,
   name: String,
   homepageURL: String,
   iconURL: String,
