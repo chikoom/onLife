@@ -7,6 +7,7 @@ const Provider = require('./models/Provider')
 const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
+
 require('dotenv').config()
 mongoose.connect("mongodb+srv://onlife_admin:0NL!feD8Pa55@onlife.lb5bu.mongodb.net/onlife?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 
