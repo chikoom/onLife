@@ -1,6 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
-
+    --nav-height:50px;
 }
 body {
-  background-color: aquamarine;
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
 }
+/** NAV BAR **/
+nav{
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+.nav-container{
+    display: grid;
+    grid-template-columns: 10fr 2fr;
+}
+#logo-container{
+  width: 150px;
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  justify-content: center;
+  align-content: center;
+}
+#logo-nav{
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+#logo-header{
+  font-size: 25px;
+}
+.nav-loginSignup{
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+/** HOME PAGE **/
+.home-inner-container{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 70vh;
+    text-align: center;
+}
+#home-logo{
+    width: 40%;
+}
+#home-header{
+    font-size: 60px;
+    margin: 0;
+}
+#home-slogan{
+    font-size: 20px;
+    margin: 0;
+}
+#input-home-search{
+    margin: 20px auto;
+}
+
+/** SEARCH RESULTS **/
+.search-inner-container{
+    max-width: 1000px;
+    margin:0 auto;
+}
+.search-result-container{
+    display: grid;
+    grid-template-areas: 
+    "img ttl ttl ttl ttl ttl"
+    "img slg slg slg slg slg"
+    "img prc prc prc prc prc"
+    "img prv prv btns btns btns"
+    ;
+    margin: 15px auto;
+}
+.search-result-image{
+    grid-area: img;
+}
+.search-result-header{
+    font-size: 25px;
+    grid-area: ttl;
+}
+.search-result-slug{
+    grid-area: slg;
+    font-size: 15px;
+}
+.search-result-image{
+    grid-area: img;
+}
+.search-result-price{
+    grid-area: prc;
+    text-align: left;
+    width: 100%;
+    display: grid;
+    justify-content: right;
+}
+.search-result-button{
+    cursor: pointer;
+}
+.search-result-provider-container{
+    grid-area: prv;
+}
+.search-result-provider-icon{
+    height:20px;
+}
+.search-result-buttons{
+    grid-area: btns;
+}
+
+/** SINGLE COURSE **/
+
