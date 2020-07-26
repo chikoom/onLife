@@ -3,12 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
   <link rel="stylesheet" href="./style/style.css">
   <title>OnLife</title>
 </head>
 <body>
+
+  <div id="root-container">
+    <nav>
+      <div id="logo-container">
+        <img id="logo-nav" src="style/assets/web-logo-svg-07.svg">
+        <h2 id="logo-header">Onlife</h2>
+      </div>
+      <div class="nav-container"></div>
+    </nav>
+    <main>
+      <div class="home-container"></div>
+      <div class="search-container"></div>
+      <div class="course-container"></div>
+      <div class="user-container"></div>
+      <div class="userCourses-container"></div>
+    </main>
+  </div>
   
-  <script id="course-template" type="text/x-handlebars-template"></script>
+  <script id="nav-template" type="text/x-handlebars-template">
+    
+    <div class="nav-searchbar">
+      {{#if data.searchTerm}}
+      <input id="input-nav-search" class="input-search" type="text" value="{{data.searchTerm}}">
+      <button id="button-nav-search" class="button-search"><i class="fas fa-search"></i></button>
+      {{/if}}
+    </div>
+    
+    <div class="nav-loginSignup">
+      <div class="nav-loginSignup-user">
+        <span class="button-username">Chikoom</span>
+      </div>
+    </div>
+  </script>
+
+  <script id="home-template" type="text/x-handlebars-template">
+    <div class="home-inner-container centered">
+      <div id="middle-conatiner">
+        <img id="home-logo" src="style/assets/web-logo-svg-07.svg">
+        <h1 id="home-header">OnLife</h1>
+        <h2 id="home-slogan">The gate to your online learning life</h2>
+        <input id="input-home-search" class="input-search" type="text" placeholder="Search for online course" />
+        <button id="button-home-search" class="button-search"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </script>
+
+  <script id="search-template" type="text/x-handlebars-template">
+    <div class="search-inner-container centered">
+      {{#each data.courses}}
+        <div class="search-result-container" data-course-id="{{_id}}">
+          <img class="search-result-image" src="{{imageURL}}" />
+          <h3 class="search-result-header">{{name}}</h3>
+          <h4 class="search-result-slug">{{slug}}</h4>
+          <div class="search-result-provider-container">
+            <a class="search-result-provider-link" href="{{provider.homepageURL}}" target="_blank">
+              <img class="search-result-provider-icon" src="{{provider.iconURL}}" />
+              <span class="search-result-provider-by">by</span>
+              <span class="search-result-provider-name">{{provider.name}}</span>
+            </a>
+          </div>
+          <span class="search-result-price">{{price}}</span>
+          <div class="search-result-buttons">
+            <a id="search-result-course-details" class="search-result-button">COURSE DETAILS</a>
+            <a id="search-result-course-link" class="search-result-button" href="{{courseURL}}" target="_blank">GO TO COURSE</a>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </script>
+
+
+  <script id="course-template" type="text/x-handlebars-template">
+    <div class="course-container-inner centered">
+      <button id="button-back-to-search" class="back-button">BACK TO RESULTS</button>
+      <div class="course-container-top">
+        <h1 class="course-container-name">{{ data.name }}</h1>
+        <h2 class="course-container-slug">{{ data.slug }}</h2>
+        <div class="course-container-provider-container">
+          <a class="course-container-provider-link" href="{{data.provider.homepageURL}}" target="_blank">
+            <img class="course-container-provider-icon" src="{{data.provider.iconURL}}" />
+            <span class="course-container-provider-by">by</span>
+            <span class="course-container-provider-name">{{data.provider.name}}</span>
+          </a>
+        </div>
+        <span class="course-container-price">{{data.price}}</span>
+        <span class="course-container-language">{{data.language}}</span>
+        <a class="course-container-link" href="{{data.courseURL}}" target="_blank">GO TO COURSE</a>
+        <img class="course-container-image" src="{{data.imageURL}}" />
+      </div>
+      <hr />
+      <div class="course-container-description">{{data.description}}</div>
+      <hr />
+      <h2 class="course-container-lessons-header">Lessons:</h2>
+      <div class="course-container-lessons-container">
+        {{#each data.lessons}}
+          <div class="course-container-lessons-inner">
+            <h3 class="course-container-lessons-title">{{name}}</h3>
+            <div class="course-container-lessons-description">{{description}}</div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </script>
+
+
+  <script id="user-template" type="text/x-handlebars-template">
+    <div class="user-container-inner centered">
+      <h1 class="user-container-username">{{data.username}}</h1>
+      <hr />
+      <div class="user-container-analytics">
+        <div class="user-container-analytics-total">Total courses: {{data.totalCourses}}</div>
+        <div class="user-container-analytics-completed">Completed Courses: {{data.completedCourses}}</div>
+        <div class="user-container-analytics-overall">Overall progress: {{data.overallProgress}}</div>
+      </div>
+      <hr />
+    </div>
+  </script>
+
+
+  <script id="userCourses-template" type="text/x-handlebars-template">
+    <div class="user-courses-inner centered">
+      {{#each data}}
+        <div class="user-courses-course">
+          <div class="user-course-image-container">
+            <img class="user-course-image" src="{{course.imageURL}}" />
+            <h3 class="user-course-title">{{course.name}}</h3>
+            <div class="user-course-provider-container provider-container">
+              <a class="user-course-provider-link" href="{{course.provider.homepageURL}}" target="_blank">
+                <img class="user-course-provider-icon provider-icon" src="{{course.provider.iconURL}}" />
+                <span class="user-course-provider-by">by</span>
+                <span class="user-course-provider-name">{{course.provider.name}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="user-course-progress-bar">
+            {{progress}}
+          </div>
+          <div class="user-course-buttons">
+            <a class="user-course-goto-link" href="{{course.courseURL}}" target="_blank">GO TO COURSE</a>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </script>
+  <script id="loginSignup-template" type="text/x-handlebars-template">
+  </script>
 
   <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
