@@ -8,10 +8,10 @@ const CourseSchema = new Schema({
     description: String,
     price: Number,
     currency: String,
-    provider: {type: Schema.Types.ObjectId, ref: 'Provider'},
+    provider: { type: Schema.Types.ObjectId, ref: 'Provider' },
     language: String,
     subtitlesLanguages: [String],
-    lessons: [{name: String, description: String}],
+    lessons: [{ name: String, description: String }],
     imageURL: String,
     videoURL: String,
     courseURL: String

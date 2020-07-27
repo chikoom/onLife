@@ -1,15 +1,16 @@
 const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
-const parseUdemyScrape = require('./parseFunction/parseFunctions')
+const { parseUdemyScrape, parseUdemySingleCourseUrls } = require('./parseFunction/parseFunctions')
 
 class Crawler {
     constructor() {
-        this.templates = [
+        this.scrapeTemplates = [
             {
                 provider: 'Udemy',
                 url: "https://www.udemy.com/courses/development/web-development/",
                 shortUrl: "https://www.udemy.com",
-                parseFnc: parseUdemyScrape
+                parseFnc: parseUdemyScrape,
+                singleCourseUrlParse: parseUdemySingleCourseUrls
             }
         ]
     }
@@ -22,26 +23,28 @@ class Crawler {
         return await parseFnc(content)
     }
 
-    async Crawl(url) {
-        const browser = await puppeteer.launch({headless: false})
+    async scrapeCourseListPage(scrapeTemplate) {
+        const { url, singleCourseUrlParse, shortUrl, parseFnc } = scrapeTemplate
+
+        const browser = await puppeteer.launch({ headless: false })
+
         const mainPage = await browser.newPage()
         await mainPage.goto(url, { waitUntil: 'networkidle2' })
+
         await mainPage.evaluate(() => {
             window.scrollTo(0, 2700)
         })
         await mainPage.waitFor(10000)
-    
-    
+
         const content = await mainPage.content()
         const $ = cheerio.load(content)
-        const list = $('div[class="course-list--container--3zXPS"]')
-            .find('div > div > a')
-            .toArray()
-            .map(a => $(a).attr('href'))
-            .filter(a => a !== 'https://business.udemy.com/request-demo/?ref=right-rail&locale=en_US')
-            .slice(0, 10)
-        
-        return await Promise.all(list.map(p => this.SingleCourseScrape(browser, this.templates[0].shortUrl, p, this.templates[0].parseFnc)))
+
+        const listOfCourseUrls = await singleCourseUrlParse($)
+        return await Promise.all(listOfCourseUrls.map(p => this.SingleCourseScrape(browser, shortUrl, p, parseFnc)))
+    }
+
+    async RIPPC() {
+        this.scrapeTemplates.forEach(s => this.scrapeCourseListPage(s))
     }
 }
 
