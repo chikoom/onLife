@@ -11,40 +11,51 @@ router.get("/", async (req, res) => {
   let { minPrice } = req.query;
   let { maxPrice } = req.query;
   let { sorting } = req.query;
+  let { providers } = req.query;
 
-  minPrice = minPrice || 0
-  maxPrice = maxPrice || 10000
+  minPrice = minPrice || 0;
+  maxPrice = maxPrice || 10000;
 
-//   const sortMethod
-//   sorting === 'relevance' ? sortMethod = '' : sorting === 'low-high' ? 
+  let sortMethod = "";
+  sorting === "relevance"
+    ? (sortMethod = "")
+    : sorting === "low-high"
+    ? (sortMethod = "price")
+    : (sortMethod = "-price");
 
-const coursesQuery = await Course.find({
+  const providersFromDB = await Provider.find({}, { name: 1 });
+  const providerNames = providersFromDB.map((provider) => provider.name);
+
+  !providers ? (providers = providerNames) : (providers = [providers]);
+
+  console.log(providers);
+
+  const coursesQuery = await Course.find({
+    $and: [
+      { name: { $regex: searchQuery, $options: "i" } },
+      { price: { $gte: minPrice, $lte: maxPrice } },
+    ],
+  })
+    .populate("provider")
+    .limit(80)
+    .sort(sortMethod);
+  const toSend = coursesQuery.filter((course) => providers.some(p => p == course.provider.name))
+  console.log(toSend)
+
+  const courseWithMaxPrice = await Course.findOne({
     $and: [
       { name: { $regex: searchQuery, $options: "i" } },
       { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] },
     ],
-  })
-    .populate("provider")
-    .limit(10).sort(sortMethod)
-    
-    const courseWithMaxPrice = await Course.findOne({
-        $and: [
-          { name: { $regex: searchQuery, $options: "i" } },
-          { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] },
-        ],
-      }).sort('-price')
+  }).sort("-price");
 
-      console.log()
-
-    const providersFromDB = await Provider.find({}, {"name": 1})
-    const providers = providersFromDB.map(provider => provider.name)
-
+  console.log();
 
   const response = {
-    courses: coursesQuery,
-    providers: providers,
+    courses: toSend,
+    providers: providerNames,
     maxPrice: courseWithMaxPrice.price,
-    totalCourses: coursesQuery.length,
+    totalCourses: toSend.length,
   };
   res.send(response);
 });

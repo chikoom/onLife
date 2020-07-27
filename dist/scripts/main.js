@@ -3,32 +3,54 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
-const handleSearch = async function(){
-
+let handleClick = false
+const handlePageClick = async function(){
   const currentFilters = app.getCurrentFilters()
-  console.log(currentFilters)
+  currentFilters.currentPageNumber = parseInt($(this).text())
+  handleClick = true
+  handleSearch()
+}
 
-  const minPrice = $('#input-min-price').val() || currentFilters.minPrice
-  const maxPrice = $('#input-max-price').val() || currentFilters.maxPrice
-  const sorting = 0 || currentFilters.sorting
-  const pageNumber = 0 || currentFilters.pageNumber
+const handleSearch = async function(){
+  const currentFilters = app.getCurrentFilters()
+  if(!handleClick){
+    currentFilters.currentPageNumber = 1
+    
+  }
+  handleClick = false
+  console.log(currentFilters.currentPageNumber)
+  currentFilters.minPrice = $('#input-min-price').val()
+  currentFilters.maxPrice = $('#input-max-price').val()
+  currentFilters.sorting = $('#select-sorting').val()
+  let checkedProviders = []
+  $('.checkbox-provider:checked').each(function(){
+    checkedProviders.push($(this).val())
+  })
+
+    
+  currentFilters.selectedProviders = checkedProviders
+
+
+
+
+
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
-  const providers = 0 || currentFilters.providers.join()
+  const searchResults = await app.getSearchResults(searchQuery,currentFilters.minPrice,currentFilters.maxPrice,currentFilters.sorting,currentFilters.currentPageNumber,currentFilters.selectedProviders)
+  
+  
 
-  console.log('SEARCHING')
-  console.log('q:'+searchQuery)
-  console.log('mp:'+minPrice)
-  console.log('xp:'+maxPrice)
-  console.log('srt:'+sorting)
-  console.log('pg:'+pageNumber)
-  console.log('pr:'+providers)
-
-
-  const searchResults = await app.getSearchResults(searchQuery,minPrice,maxPrice,sorting,pageNumber,providers)
   renderer.render('search', { 
                               courses: searchResults.courses,
                               pageNumber:1,
-                              sortOption:'relevance'
+                              sortOption:'relevance',
+                              allProviders: searchResults.courses.providers,
+                              selectedProviders: currentFilters.selectedProviders,
+                              filteredMinPrice : currentFilters.minPrice,
+                              filteredMaxPrice : currentFilters.maxPrice,
+                              currentPageNumber : currentFilters.currentPageNumber,
+                              filteredSorting : currentFilters.sorting,
+                              filteredProviders : currentFilters.providers,
+                              searchQuery: searchResults.searchTerm
                             })
   renderer.render('nav', { searchTerm: searchResults.searchTerm })
 }
@@ -42,7 +64,6 @@ const handleSingleCourse = function(event){
 
 const handleUsernameClick = async function(event){
   event.preventDefault()
-  console.log('username')
   const userData = await app.getCurrentUserData()
   const userCourses = await app.getCurrentUserCourses()
   renderer.render('user', userData)
@@ -58,6 +79,12 @@ const init = () => {
   renderer.render('home', {})
 }
 
+
+
+$('body').on('click','.page-number', handlePageClick)
+$('body').on('change','.checkbox-provider', handleSearch)
+$('body').on('click', '#select-sorting', handleSearch)
+$('body').on('click', '#select-sorting', handleSearch)
 $('body').on('click', '.button-apply-filters', handleSearch)
 $('body').on('click', '#button-back-to-search', handleSearch)
 $('#logo-container').on('click', handleGoToHome)

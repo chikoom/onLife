@@ -11,15 +11,43 @@ export class Render {
     }
   }
   render(areaName, data){
-    console.log(`Rendering ${areaName} with data:`)
-    console.log(data)
+
     this.renderClearAreas(areaName)
     const renderHTML = this.templates[areaName]({ data })
     $(`.${areaName}-container`).empty().append(renderHTML)
     if(areaName==='user'){
-      console.log('TOT '+data.overallProgress)
       this.renderChart(data.overallProgress)
     }
+    if(areaName==='search'){
+      console.log(data)
+      this.renderProviders(data.allProviders, data.selectedProviders)
+      this.renderPagination(data.courses.totalCourses, data.searchQuery, data.currentPageNumber)
+    }
+  }
+
+  renderPagination(totalResults, searchQuery, currentPageNumber){
+    $('#field-total-results').text(totalResults)
+    $('#field-serach-query').text(searchQuery)
+    let numOfPages = Math.floor(totalResults/10)
+    let addOn = (totalResults%10 === 0)? 0:1;
+    $('.search-pagination-numbers').empty()
+    for(let i = 1; i <=numOfPages+addOn ; i++){
+      let classSelected = (currentPageNumber == i)?"page-selected":""
+      $('.search-pagination-numbers').append($(`<span class="page-number ${classSelected}">${i}</span>`))
+    }
+    
+  }
+
+  renderProviders(allProviders, selectedProviders, currentPageNumber){
+    $('.search-filters-providers').empty()
+    allProviders.forEach(provider => {
+      let checked = (selectedProviders.includes(provider))? "checked" :""
+      $('.search-filters-providers').append($(`
+      <div class="filter-provider-container">
+        <input type="checkbox" class="checkbox-provider" value="${provider}" ${checked}><span class="filter-provider-name">${provider}</span>
+      </div>
+      `))
+    })
   }
   
   renderClearAreas(currentRender){
@@ -37,7 +65,6 @@ export class Render {
         $('.home-container').empty()
         $('.course-container').empty()
         $('.user-container').empty()
-        $('.userCourses-container').empty()
         break
       case 'course':
         $('.nav-searchbar').empty()
@@ -63,7 +90,6 @@ export class Render {
     }
   }
   renderClearSearchFilters(){
-    console.log('Renderer Clearing the filters')
   }
 
   renderChart(totalProgress){
@@ -95,6 +121,16 @@ Handlebars.registerHelper('progressBar', function(opts) {
   let decNumber = opts.fn(this)
   decNumber = decNumber*100
   return decNumber
+})
+
+Handlebars.registerHelper('checkChecked', function(currentProvider, checkedProviders) {
+  return "hey"
+})
+
+Handlebars.registerHelper('priceFormater', function(opts) {
+  let priceNumber = opts.fn(this)
+  priceNumber = (priceNumber > 0) ? `$${priceNumber}`: 'FREE'
+  return priceNumber
 })
 
 

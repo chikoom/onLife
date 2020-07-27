@@ -9,4 +9,3 @@ export class AppService {
     return await $.get(`/api/user/courses/${userId}`)
   }
 }
-console.log('AppService loaded')
