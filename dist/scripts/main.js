@@ -7,7 +7,7 @@ const renderer = new Render()
 const handlePageClick = async function(){
   const currentFilters = app.getCurrentFilters()
   currentFilters.currentPageNumber = parseInt($(this).text())
-  this.handleSearch()
+  handleSearch()
 }
 
 const handleSearch = async function(){
