@@ -10,10 +10,18 @@ const Course = require("../../models/Course");
 const router = express.Router();
 
 
-router.put("/progress/:userId/:providerId/:providerCourseId", async (req, res) => {
+router.put("/updateProgress", async (req, res) => {
     let { userId, providerId, providerCourseId } = req.params
-    console.log(req.params)
-    res.send()
-}); 
+    const { userId, providerName, courseURL, progress } = req.body
+    const courseId = await Course.findOne({providerCourseId: providerCourseId}, {id: 1})
+    const courseToUpdate = await User.findOneAndUpdate({"_id": userId, "courses.course": courseId._id}, { "$set": {
+        "courses.$.progress": progress
+    }}, { new: true })
+
+    console.log(courseToUpdate)
+    res.send(courseToUpdate)
+});     
+
+// 
 
 module.exports = router
