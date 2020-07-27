@@ -5,14 +5,15 @@ import { User } from '../model/User.js'
 export class App {
   constructor(){
     this.appService = new AppService()
-    this.currentLoggedUser = new User(dummyUserData.id, dummyUserData.username)
+    this.currentLoggedUser = new User('5f1d5298de37ca320cc7d48a', 'ElonMusk')
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
 
-  getSearchResults = (searchQuery) => {
-    // appService.fetchSearchResultsFromDB
-    this.searchCourseList.courses = dummyCourses
+  getSearchResults = async (searchQuery) => {
+    const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery)
+    console.log(searchResults)
+    this.searchCourseList.courses = searchResults
     this.searchCourseList.searchTerm = searchQuery
     return {
       courses: this.searchCourseList.getAllCourses(false),
@@ -21,25 +22,24 @@ export class App {
   }
 
   getSingleCourse = (courseId) => {
-    console.log(courseId)
     return this.searchCourseList.getCourseById(courseId, false)
   }
 
-  getCurrentUserData = () => {
-    // appService.fetchUserInfoFromDB(this.currentLoggedUser.id)
-    const userData = dummyUserData
-    return dummyUserData
+  getCurrentUserData = async () => {
+    const userData = await this.appService.fetchUserInfoFromDB(this.currentLoggedUser.id)
+    console.log('User Data')
+    console.log(userData)
+    return userData
   }
 
-  getCurrentUserCourses = () => {
-    // appService.fetchUserCoursesFromDB(this.currentLoggedUser.id)
-    this.currentLoggedUser.courses = new CourseList(dummyUserCourses, true)
+  getCurrentUserCourses = async () => {
+    const userCourses = await this.appService.fetchUserCoursesFromDB(this.currentLoggedUser.id)
+    console.log('User Courses')
+    console.log(userCourses)
+    this.currentLoggedUser.courses = new CourseList(userCourses[0].courses, true)
     return this.currentLoggedUser.courses.getAllCourses()
   }
 }
-
-
-
 
 const dummyUserData = {
   id: '324hjg432j4gh',

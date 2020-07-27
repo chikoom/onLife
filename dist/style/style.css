@@ -11,6 +11,29 @@ body {
   max-width: 1000px;
   margin: 0 auto;
 }
+.button-link{
+    text-decoration: none;
+    background-color: #3f89d9;
+    color: #fff;
+    text-align: center;
+    font-size:15px;
+    line-height: 15px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+.inverted-button-link{
+    text-decoration: none;
+    background-color: #fff;
+    color: #3f89d9;
+    border: 1px solid #3f89d9;
+    text-align: center;
+    font-size:15px;
+    line-height: 15px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
 /** NAV BAR **/
 nav{
     display: grid;
@@ -65,8 +88,9 @@ nav{
 
 /** SEARCH RESULTS **/
 .search-inner-container{
-    max-width: 1000px;
+    max-width: 800px;
     margin:0 auto;
+    
 }
 .search-result-container{
     display: grid;
@@ -77,39 +101,53 @@ nav{
     "img prv prv btns btns btns"
     ;
     margin: 15px auto;
+    padding: 20px;
+    box-shadow: 1px 1px 1px 1px #aaa;
 }
 .search-result-image{
     grid-area: img;
+    height: 150px;
 }
 .search-result-header{
-    font-size: 25px;
+    font-size: 20px;
     grid-area: ttl;
+    margin: 0 20px;
 }
 .search-result-slug{
     grid-area: slg;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0 100px 0 20px;
+    
 }
 .search-result-image{
     grid-area: img;
 }
 .search-result-price{
     grid-area: prc;
-    text-align: left;
-    width: 100%;
-    display: grid;
-    justify-content: right;
+    text-align: right;
+    //width: calc(100%-100px);
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    color:#000000;
+    margin-right: 20px;
 }
 .search-result-button{
     cursor: pointer;
 }
 .search-result-provider-container, .provider-container{
     grid-area: prv;
+    margin: 0 20px;
 }
 .search-result-provider-icon, .provider-icon{
     height:20px;
 }
 .search-result-buttons{
     grid-area: btns;
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    grid-gap: 10px;
 }
 
 /** SINGLE COURSE **/
@@ -118,6 +156,10 @@ nav{
 /** USER PAGE **/
 .user-courses-course{
     width: 29%;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 1px #eee;
+    overflow: hidden;
+    background-color: #fff;
 }
 .user-course-image-container{
     position: relative;
@@ -125,11 +167,31 @@ nav{
 .user-course-image{
     width:100%;
 }
+.user-course-title{
+    color:#000000;
+    margin:0;
+    padding: 0;
+    width:100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 10px;
+}
 .user-course-provider-container{
     position: absolute;
-    top:0;
-    right:0;
-    backg
+    top:20px;
+    right:10px;
+}
+.user-course-progress-bar-inner{
+background-color: #3f89d9;
+    color:#fff;
+    text-align: right;
+padding-right: 5px;
+    font-size:10px;
+    padding: 5px 5px 5px 0;
+}
+.user-course-buttons{
+    text-align: right;
+padding: 20px;
 }
 
 

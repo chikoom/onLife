@@ -70,8 +70,8 @@
           </div>
           <span class="search-result-price">{{price}}</span>
           <div class="search-result-buttons">
-            <a id="search-result-course-details" class="search-result-button">COURSE DETAILS</a>
-            <a id="search-result-course-link" class="search-result-button" href="{{courseURL}}" target="_blank">GO TO COURSE</a>
+            <a id="search-result-course-details" class="search-result-button inverted-button-link">COURSE DETAILS</a>
+            <a id="search-result-course-link" class="search-result-button button-link" href="{{courseURL}}" target="_blank">GO TO COURSE</a>
           </div>
         </div>
       {{/each}}
@@ -118,7 +118,7 @@
       <h1 class="user-container-username">{{data.username}}</h1>
       <hr />
       <div class="user-container-analytics">
-        <div class="user-container-analytics-total">Total courses: {{data.totalCourses}}</div>
+        <div class="user-container-analytics-total">Total courses: {{data.numberOfCourses}}</div>
         <div class="user-container-analytics-completed">Completed Courses: {{data.completedCourses}}</div>
         <div class="user-container-analytics-overall">Overall progress: {{data.overallProgress}}</div>
       </div>
@@ -143,10 +143,12 @@
             </div>
           </div>
           <div class="user-course-progress-bar">
-            {{progress}}
+            <div class="user-course-progress-bar-inner" style="width:{{#progressBar}}{{progress}}{{/progressBar}}%;">
+              {{#progressBar}}{{progress}}{{/progressBar}}%
+            </div>
           </div>
           <div class="user-course-buttons">
-            <a class="user-course-goto-link" href="{{course.courseURL}}" target="_blank">GO TO COURSE</a>
+            <a class="user-course-goto-link button-link" href="{{course.courseURL}}" target="_blank">GO TO COURSE</a>
           </div>
         </div>
       {{/each}}
@@ -155,8 +157,8 @@
   <script id="loginSignup-template" type="text/x-handlebars-template">
   </script>
 
-  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../handlebars/dist/handlebars.min.js"></script>
+  <script src="../jquery/dist/jquery.min.js"></script>
   <script src="./scripts/main.js" type="module"></script>
 </body>
 </html>
