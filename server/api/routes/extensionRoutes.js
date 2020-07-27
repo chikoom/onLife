@@ -9,19 +9,29 @@ const User = require("../../models/User");
 const Course = require("../../models/Course");
 const router = express.Router();
 
-
 router.put("/updateProgress", async (req, res) => {
-    let { userId, providerId, providerCourseId } = req.params
-    const { userId, providerName, courseURL, progress } = req.body
-    const courseId = await Course.findOne({providerCourseId: providerCourseId}, {id: 1})
-    const courseToUpdate = await User.findOneAndUpdate({"_id": userId, "courses.course": courseId._id}, { "$set": {
-        "courses.$.progress": progress
-    }}, { new: true })
+  const { userId, providerName, courseURL, progress } = req.body;
+//   const user = await User.findById(userId)
+//   console.log(user)
+  const course = await Course.findOne({ courseURL: courseURL });
+  if (!course) {
+    console.log("send to crawler");
+} else {
+    console.log(course);
+    const courseToUpdate = await User.findOneAndUpdate(
+      { _id: userId, "courses.course": course._id },
+      {
+        $set: {
+          "courses.$.progress": progress,
+        },
+      },
+      { new: true }
+      )
+      console.log(courseToUpdate)
+      res.send(courseToUpdate)
+  }
 
-    console.log(courseToUpdate)
-    res.send(courseToUpdate)
-});     
 
-// 
+});
 
-module.exports = router
+module.exports = router;
