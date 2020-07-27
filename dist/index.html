@@ -83,12 +83,12 @@
         </div>
         <div class="search-filters-filters">
           <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="filters-price-range">
+            <input type="range" min="{{data.filteredMinPrice}}" max="{{data.courses.maxPrice}}" value="{{data.filteredMaxPrice}}" class="slider" id="filters-price-range">
           </div>
           <div class="price-min-max-container">
-            <input type="number" placeholder="MIN" id="input-min-price">
+            <input type="number" placeholder="MIN" id="input-min-price" value="{{data.filteredMinPrice}}">
             <span id="price-currency">USD</span>
-            <input type="number" placeholder="MAX" id="input-max-price">
+            <input type="number" placeholder="MAX" id="input-max-price" value="{{data.filteredMaxPrice}}">
           </div>
         </div>
       </div>
@@ -101,20 +101,33 @@
           </div>
         </div>
         <div class="search-filters-providers">
+          {{#each data.courses.Providers}}
           <div class="filter-provider-container">
-            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Udemy</span>
+            <input type="checkbox" class="checkbox-provider" value="{{this.provider}}" {{this.checked}}><span class="filter-provider-name">{{this.provider}}</span>
           </div>
-          <div class="filter-provider-container">
-            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Coursera</span>
-          </div>
-          <div class="filter-provider-container">
-            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Code Acedemy</span>
-          </div>
+          {{/each}}
         </div>
       </div>
     </div>
     <div class="search-inner-container centered">
-      {{#each data.courses}}
+      <div class="search-inner-container-top">
+
+        <div class="search-inner-container-pagination">
+          <div class="search-pagination-title">Showing {{data.courses.totalCourses}} results for <strong>{{data.searchQuery}}</strong></div>
+          <div class="search-pagination-numbers">1 2 3 4 5 ... 200</div>
+        </div>
+
+        <div class="search-inner-container-sorting">
+          Sort by
+          <select>
+            <option>Relevance</option>
+            <option>Lowest Price</option>
+            <option>Highest Price</option>
+          </select>
+        </div>
+
+      </div>
+      {{#each data.courses.courses}}
         <div class="search-result-container" data-course-id="{{_id}}">
           <img class="search-result-image" src="{{imageURL}}" />
           <h3 class="search-result-header">{{name}}</h3>

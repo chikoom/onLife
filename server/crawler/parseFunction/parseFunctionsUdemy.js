@@ -1,7 +1,15 @@
 const cheerio = require('cheerio')
 
+const udemyPageActionsFunction = async (page) => {
+    await page.evaluate(() => {
+        window.scrollTo(0, 2700)
+    })
+    await page.waitFor(10000)
+}
+
 const parseUdemyScrape = async (content) => {
     const $ = cheerio.load(content)
+
     return {
         providerCourseId: await $('body').data().moduleArgs.course_id,
         name: await $('body').data().moduleArgs.title,
@@ -29,6 +37,7 @@ const parseUdemySingleCourseUrls = async ($) => {
 
 module.exports =
 {
+    udemyPageActionsFunction,
     parseUdemyScrape,
     parseUdemySingleCourseUrls
 }

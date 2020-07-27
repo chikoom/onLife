@@ -456,6 +456,14 @@ text-align: center;
 .filter-provider-name{
     margin-left: 10px;
 }
+.search-inner-container-top{
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    margin-top:-40px;
+}
+.search-inner-container-sorting{
+text-align:right;
+}
 
 
 
