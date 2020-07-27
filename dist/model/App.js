@@ -9,9 +9,8 @@ export class App {
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
-
-  getSearchResults = async (searchQuery) => {
-    const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery)
+  getSearchResults = async (searchQuery,minPrice,maxPrice) => {
+    const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery,minPrice,maxPrice)
     console.log(searchResults)
     this.searchCourseList.courses = searchResults
     this.searchCourseList.searchTerm = searchQuery

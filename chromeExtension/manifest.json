@@ -27,7 +27,7 @@
          "*://www.udemy.com/home/my-courses/learning/",
          "*://www.udemy.com/course/*/learn/lecture/*"
        ],
-       "js": ["dist/scripts/jquery-3.3.1.min.js", "dist/scripts/content_udemy.js"]
+       "js": ["dist/scripts/jquery-3.3.1.min.js", "dist/scripts/ExtensionService.js", "dist/scripts/content_udemy.js"]
     },
     {
       "matches": [

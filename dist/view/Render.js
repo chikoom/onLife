@@ -74,7 +74,7 @@ export class Render {
     ]
     chart.innerRadius = 75;
     let label = chart.seriesContainer.createChild(am4core.Label);
-    label.text = `${(totalProgress*100)}%`;
+    label.text = `${Math.round(totalProgress*100)}%`;
     label.horizontalCenter = "middle";
     label.verticalCenter = "middle";
     label.fontSize = 20;
@@ -96,4 +96,5 @@ Handlebars.registerHelper('progressBar', function(opts) {
   decNumber = decNumber*100
   return decNumber
 })
+
 

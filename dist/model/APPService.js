@@ -1,6 +1,6 @@
 export class AppService {
-  async fetchSearchResultsFromDB(searchQuery){
-    return await $.get(`/api/courses?q=${searchQuery}`)
+  async fetchSearchResultsFromDB(searchQuery,minPrice,maxPrice){
+    return await $.get(`/api/courses?q=${searchQuery}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
   }
   async fetchUserInfoFromDB(userId){
     return await $.get(`/api/user/${userId}`)
