@@ -3,14 +3,14 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
-const handlePageClick = async function(){
+
+const handlePageClick = async function(event){
   const currentFilters = app.getCurrentFilters()
   currentFilters.currentPageNumber = parseInt($(this).text())
-  handleSearch(true)
 }
 
-const handleSearch = async function(isPageClick){
-  if(!isPageClick){
+const handleSearch = async function(event){
+  if(!$(this).hasClass('page-number')){
     currentFilters.currentPageNumber = 1
   }
   const currentFilters = app.getCurrentFilters()
