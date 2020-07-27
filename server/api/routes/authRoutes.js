@@ -27,8 +27,9 @@ auth.post('/login', async (req, res) => {
         res.status(404).send({ err: 'User name not in data base' })
     }
     const hash = isUserNameInDB.password
+    const userID = isUserNameInDB._id
     await bcrypt.compare(password, hash) ?
-        res.status(202).send({ userName, userID: newUser._id, msg: 'success' })
+        res.status(202).send({ userName, userID, msg: 'success' })
         :
         res.status(401).send({ err: 'passwords dont match' })
 })
