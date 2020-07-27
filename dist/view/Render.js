@@ -29,8 +29,9 @@ export class Render {
     $('#field-total-results').text(totalResults)
     $('#field-serach-query').text(searchQuery)
     let numOfPages = Math.floor(totalResults/10)
+    let addOn = (totalResults%10 === 0)? 0:1;
     $('.search-pagination-numbers').empty()
-    for(let i = 1; i <=numOfPages+1 ; i++){
+    for(let i = 1; i <=numOfPages+addOn ; i++){
       let classSelected = (currentPageNumber == i)?"page-selected":""
       $('.search-pagination-numbers').append($(`<span class="page-number ${classSelected}">${i}</span>`))
     }
