@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
   <link rel="stylesheet" href="./style/style.css">
   <title>OnLife</title>
@@ -19,20 +22,25 @@
     </nav>
     <main>
       <div class="home-container"></div>
-      <div class="search-container"></div>
+      <div class="search-container-wrapper">
+        <div class="search-filters">
+          
+        </div>
+        <div class="search-container"></div>
+      </div>
       <div class="course-container"></div>
       <div class="user-container"></div>
       <div class="userCourses-container"></div>
     </main>
   </div>
   
+  <!-- ---- TEMPLATE -----  NAV ------ -->
+
   <script id="nav-template" type="text/x-handlebars-template">
     
-    <div class="nav-searchbar">
-      {{#if data.searchTerm}}
+    <div class="nav-searchbar searchbar-container">
       <input id="input-nav-search" class="input-search" type="text" value="{{data.searchTerm}}">
       <button id="button-nav-search" class="button-search"><i class="fas fa-search"></i></button>
-      {{/if}}
     </div>
     
     <div class="nav-loginSignup">
@@ -42,17 +50,23 @@
     </div>
   </script>
 
+  <!-- ---- TEMPLATE -----  HOME ------ -->
+
   <script id="home-template" type="text/x-handlebars-template">
     <div class="home-inner-container centered">
       <div id="middle-conatiner">
         <img id="home-logo" src="style/assets/web-logo-svg-07.svg">
         <h1 id="home-header">OnLife</h1>
         <h2 id="home-slogan">The gate to your online learning life</h2>
-        <input id="input-home-search" class="input-search" type="text" placeholder="Search for online course" />
-        <button id="button-home-search" class="button-search"><i class="fas fa-search"></i></button>
+        <div class="searchbar-container">
+          <input id="input-home-search" class="input-search" type="text" placeholder="Search for online course" />
+          <button id="button-home-search" class="button-search"><i class="fas fa-search"></i></button>
+        </div>
       </div>
     </div>
   </script>
+
+  <!-- ---- TEMPLATE -----  SEARCH ------ -->
 
   <script id="search-template" type="text/x-handlebars-template">
     <div class="search-inner-container centered">
@@ -61,11 +75,11 @@
           <img class="search-result-image" src="{{imageURL}}" />
           <h3 class="search-result-header">{{name}}</h3>
           <h4 class="search-result-slug">{{slug}}</h4>
-          <div class="search-result-provider-container">
-            <a class="search-result-provider-link" href="{{provider.homepageURL}}" target="_blank">
-              <img class="search-result-provider-icon" src="{{provider.iconURL}}" />
-              <span class="search-result-provider-by">by</span>
-              <span class="search-result-provider-name">{{provider.name}}</span>
+          <div class="search-result-provider-container provider-container">
+            <a class="search-result-provider-link provider-link" href="{{provider.homepageURL}}" target="_blank">
+              <img class="search-result-provider-icon provider-icon" src="{{provider.iconURL}}" />
+              <span class="search-result-provider-by provider-by">by</span>
+              <span class="search-result-provider-name provider-name">{{provider.name}}</span>
             </a>
           </div>
           <span class="search-result-price">{{price}}</span>
@@ -78,23 +92,30 @@
     </div>
   </script>
 
+  <!-- ---- TEMPLATE -----  COURSE ------ -->
 
   <script id="course-template" type="text/x-handlebars-template">
     <div class="course-container-inner centered">
-      <button id="button-back-to-search" class="back-button">BACK TO RESULTS</button>
+      <button id="button-back-to-search" class="back-button inverted-button-link">BACK TO RESULTS</button>
       <div class="course-container-top">
-        <h1 class="course-container-name">{{ data.name }}</h1>
-        <h2 class="course-container-slug">{{ data.slug }}</h2>
-        <div class="course-container-provider-container">
-          <a class="course-container-provider-link" href="{{data.provider.homepageURL}}" target="_blank">
-            <img class="course-container-provider-icon" src="{{data.provider.iconURL}}" />
-            <span class="course-container-provider-by">by</span>
-            <span class="course-container-provider-name">{{data.provider.name}}</span>
-          </a>
+        <div class="course-container-details">
+          <h1 class="course-container-name">{{ data.name }}</h1>
+          <h2 class="course-container-slug">{{ data.slug }}</h2>
+          <div class="course-container-provider-container">
+            <a class="course-container-provider-link provider-link " href="{{data.provider.homepageURL}}" target="_blank">
+              <img class="course-container-provider-icon provider-icon" src="{{data.provider.iconURL}}" />
+              <span class="course-container-provider-by provider-by">by</span>
+              <span class="course-container-provider-name provider-name">{{data.provider.name}}</span>
+            </a>
+          </div>
+          <span class="course-container-price">{{data.price}}</span>
+          <div class="course-container-info-bottom">
+            <span class="course-container-language">{{data.language}}</span>
+            <a class="course-container-link button-link" href="{{data.courseURL}}" target="_blank">GO TO COURSE</a>
+          </div>
+          
+          
         </div>
-        <span class="course-container-price">{{data.price}}</span>
-        <span class="course-container-language">{{data.language}}</span>
-        <a class="course-container-link" href="{{data.courseURL}}" target="_blank">GO TO COURSE</a>
         <img class="course-container-image" src="{{data.imageURL}}" />
       </div>
       <hr />
@@ -112,20 +133,27 @@
     </div>
   </script>
 
+  <!-- ---- TEMPLATE -----  USER ------ -->
 
   <script id="user-template" type="text/x-handlebars-template">
     <div class="user-container-inner centered">
       <h1 class="user-container-username">{{data.username}}</h1>
       <hr />
       <div class="user-container-analytics">
-        <div class="user-container-analytics-total">Total courses: {{data.numberOfCourses}}</div>
-        <div class="user-container-analytics-completed">Completed Courses: {{data.completedCourses}}</div>
-        <div class="user-container-analytics-overall">Overall progress: {{data.overallProgress}}</div>
+        <div class="user-container-analytics-info">
+          <div class="user-container-analytics-total">Total courses: {{data.numberOfCourses}}</div>
+          <div class="user-container-analytics-completed">Completed Courses: {{data.completedCourses}}</div>
+          <div class="user-container-analytics-overall">Overall progress: {{data.overallProgress}}</div>
+        </div>
+        <div class="user-container-analytics-chart">
+          <div id="user-progress-chart" style="width: 100%; height:250px;"></div>
+        </div>  
       </div>
       <hr />
     </div>
   </script>
 
+  <!-- ---- TEMPLATE -----  USER COURSES ------ -->
 
   <script id="userCourses-template" type="text/x-handlebars-template">
     <div class="user-courses-inner centered">
@@ -135,28 +163,34 @@
             <img class="user-course-image" src="{{course.imageURL}}" />
             <h3 class="user-course-title">{{course.name}}</h3>
             <div class="user-course-provider-container provider-container">
-              <a class="user-course-provider-link" href="{{course.provider.homepageURL}}" target="_blank">
+              <a class="user-course-provider-link provider-link" href="{{course.provider.homepageURL}}" target="_blank">
                 <img class="user-course-provider-icon provider-icon" src="{{course.provider.iconURL}}" />
-                <span class="user-course-provider-by">by</span>
-                <span class="user-course-provider-name">{{course.provider.name}}</span>
+                <span class="user-course-provider-by provider-by">by</span>
+                <span class="user-course-provider-name provider-name">{{course.provider.name}}</span>
               </a>
             </div>
           </div>
+          <span class="user-course-progress">Progress:</span>
           <div class="user-course-progress-bar">
             <div class="user-course-progress-bar-inner" style="width:{{#progressBar}}{{progress}}{{/progressBar}}%;">
               {{#progressBar}}{{progress}}{{/progressBar}}%
             </div>
           </div>
           <div class="user-course-buttons">
-            <a class="user-course-goto-link button-link" href="{{course.courseURL}}" target="_blank">GO TO COURSE</a>
+            <a class="user-course-goto-link inverted-button-link" href="{{course.courseURL}}" target="_blank">GO TO COURSE</a>
           </div>
         </div>
       {{/each}}
     </div>
   </script>
+  
+  <!-- ---- TEMPLATE -----  LOGIN ------ -->
+
   <script id="loginSignup-template" type="text/x-handlebars-template">
   </script>
 
+  <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
   <script src="../handlebars/dist/handlebars.min.js"></script>
   <script src="../jquery/dist/jquery.min.js"></script>
   <script src="./scripts/main.js" type="module"></script>

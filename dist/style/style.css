@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
     --nav-height:50px;
+    --shadow-light:#c5c5c5;
+    --main-font:'Roboto', sans-serif;
 }
 body {
   font-family: 'Roboto', sans-serif;
@@ -21,23 +23,46 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
+    outline:0;
+    border:0;
+    cursor: pointer;
+}
+.button-link:hover{
+    background: linear-gradient(45deg,#3f89d9, #75aeec, #3f89d9);
+    background-size: 600% 100%;
+    animation: gradient 0.5s linear;
 }
 .inverted-button-link{
     text-decoration: none;
     background-color: #fff;
     color: #3f89d9;
-    border: 1px solid #3f89d9;
+    border: 2px solid #3f89d9;
     text-align: center;
     font-size:15px;
     line-height: 15px;
     display: grid;
     justify-content: center;
     align-content: center;
+    outline:0;
+    cursor: pointer;
+}
+.inverted-button-link:hover{
+    background: linear-gradient(45deg,#fff, #ddebfa, #fff);
+    background-size: 600% 100%;
+    animation: gradient 0.5s linear;
+}
+.inverted-button-link:active, .button-link:active{
+    transform: scale(0.98);
+}
+@keyframes gradient {
+    0% {background-position: 0%}
+    100% {background-position: 100%}
 }
 /** NAV BAR **/
 nav{
     display: grid;
     grid-template-columns: 3fr 9fr;
+    box-shadow: 0px 1px 3px 0px var(--shadow-light);
 }
 .nav-container{
     display: grid;
@@ -45,23 +70,32 @@ nav{
 }
 #logo-container{
   width: 150px;
-  display: grid;
-  grid-template-columns: 4fr 8fr;
-  justify-content: center;
-  align-content: center;
+  padding: 20px;
+    margin-left: 10%;
+    cursor: pointer;
 }
 #logo-nav{
   width: 50px;
   height: 50px;
-  display: block;
+  display: inline;
+    vertical-align: middle;
 }
 #logo-header{
   font-size: 25px;
+    display: inline;
+    vertical-align: middle;
+    margin:0;
+}
+.nav-searchbar{
+    max-width: 300px;
 }
 .nav-loginSignup{
     display: grid;
     align-content: center;
     justify-content: center;
+}
+.button-username{
+cursor: pointer;
 }
 /** HOME PAGE **/
 .home-inner-container{
@@ -82,15 +116,41 @@ nav{
     font-size: 20px;
     margin: 0;
 }
-#input-home-search{
-    margin: 20px auto;
+.searchbar-container{
+    position: relative;
+    display: block;
+    margin-top:25px;
+}
+.input-search{
+    width:90%;
+    margin: 0;
+    padding: 15px 5%;
+    border:0;
+    outline:0;
+    box-shadow: 0px 1px 3px 0px var(--shadow-light);
+    font-family: var(--main-font);
+    font-size:18px;
+    font-weight: 300;
+}
+.button-search{
+    background-color: rgba(255,255,255,0);
+    border: 0;
+outline:0;
+    padding: 18px;
+    position: absolute;
+    right:0;
+    top:0;
+    cursor: pointer;
+}
+.button-search:hover{
+    transform: scale(1.05);
+    color: #c216e6;
 }
 
 /** SEARCH RESULTS **/
 .search-inner-container{
     max-width: 800px;
     margin:0 auto;
-    
 }
 .search-result-container{
     display: grid;
@@ -102,7 +162,7 @@ nav{
     ;
     margin: 15px auto;
     padding: 20px;
-    box-shadow: 1px 1px 1px 1px #aaa;
+    box-shadow: 1px 1px 3px 0px #c5c5c5;
 }
 .search-result-image{
     grid-area: img;
@@ -151,9 +211,59 @@ nav{
 }
 
 /** SINGLE COURSE **/
-
+#button-back-to-search{
+    margin: 20px 0;
+    padding:10px 15px; 
+}
+.course-container-top{
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+}
+.course-container-details{
+    display: grid;
+}
+.course-container-name{
+    margin:0;
+}
+.course-container-slug{
+    margin:0;
+    font-weight: 400;
+    font-size:18px;
+}
+.course-container-provider-container{
+    
+}
+.course-container-price{
+    display:block;
+    text-align: right;
+    font-weight: 700;
+    font-size:28px;
+    color:#0ba431;
+    padding: 20px;
+}
+.course-container-info-bottom{
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+}
+.course-container-language{
+    display: inlilne-block;
+    vertical-align: bottom;
+}
+.course-container-link{
+    width:150px;
+    padding: 10px;
+    margin-right:20px;
+}
+.course-container-image{
+}
 
 /** USER PAGE **/
+
+.user-container-analytics{
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+}
+
 .user-courses-course{
     width: 29%;
     border-radius: 15px;
@@ -181,6 +291,13 @@ nav{
     top:20px;
     right:10px;
 }
+.user-course-progress{
+    margin-left: 10px;
+    font-size: 12px;
+}
+.user-course-progress-bar{
+background-color: #eee;
+}
 .user-course-progress-bar-inner{
 background-color: #3f89d9;
     color:#fff;
@@ -193,10 +310,37 @@ padding-right: 5px;
     text-align: right;
 padding: 20px;
 }
+.user-course-goto-link{
+text-decoration: none;
+    background-color: #fff;
+    color: #3f89d9;
+    border: 1px solid #3f89d9;
+    text-align: center;
+    font-size:15px;
+    line-height: 15px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    padding: 20px;
+}
 
-
-
-
+/** SEARCH RESULTS **/
+.provider-container{
+    
+}
+.provider-link{
+    
+}
+.provider-icon{
+    
+}
+.provider-by{
+    text-decoration: none;
+}
+.provider-name{
+    text-decoration: none;
+    
+}
 
 
 
