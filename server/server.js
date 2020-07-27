@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use("/api/user", userRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/extension", extensionRouter);
-app.user("/auth", authRouter)
+app.use("/auth", authRouter)
 
 const { PORT } = process.env
 app.listen(PORT, () => {
