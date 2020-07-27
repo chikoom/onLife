@@ -5,40 +5,45 @@ const Course = require("../../models/Course");
 const router = express.Router();
 
 router.get("/:userId", async (req, res) => {
-  let userId = req.params.userId;
+  let { userId } = req.params
+  const user = await User.findById(userId).populate(
+    { path: "courses",
+     populate: "course"
+  })
+  console.log(user.courses[0].progress)
   try {
-    let user = await User.findById(userId);
     let returnData;
-    if (user) {
+    if (user) { 
+      // console.log(user)
       let username = user.userName;
       let userCoursesArray = user.courses;
       let numberOfCourses = userCoursesArray.length;
-      let completedCourses = user.courses.filter(
+      let numOfCompletedCourses = user.courses.filter(
         (course) => course.progress === 1
       ).length;
       let overallProgress = 0;
       userCoursesArray.forEach(
         (course) => (overallProgress += course.progress)
       );
-      overallProgress = numOfCompletedCourses / numberOfCourses;
-      console.log(overallProgress);
+      overallProgress /= numberOfCourses;
+      console.log(numberOfCourses, overallProgress);
       if (!numberOfCourses) {
         returnData = {
           username,
           numberOfCourses: 0,
-          completedCourses: 0,
+          numOfCompletedCourses: 0,
           overallProgress: 0,
         };
         res.send(returnData);
       }
 
-      console.log(user);
+      // console.log(user);
 
       returnData = {
         userId,
         username,
         numberOfCourses,
-        completedCourses,
+        numOfCompletedCourses,
         overallProgress,
       };
 
