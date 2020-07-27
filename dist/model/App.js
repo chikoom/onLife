@@ -21,6 +21,10 @@ export class App {
     }
   }
 
+  getCurrentSeachTerm(){
+    return this.searchCourseList.searchTerm
+  }
+
   getSingleCourse = (courseId) => {
     return this.searchCourseList.getCourseById(courseId, false)
   }
@@ -35,8 +39,8 @@ export class App {
   getCurrentUserCourses = async () => {
     const userCourses = await this.appService.fetchUserCoursesFromDB(this.currentLoggedUser.id)
     console.log('User Courses')
-    console.log(userCourses)
-    this.currentLoggedUser.courses = new CourseList(userCourses[0].courses, true)
+    console.log(userCourses.courses)
+    this.currentLoggedUser.courses = new CourseList(userCourses.courses, true)
     return this.currentLoggedUser.courses.getAllCourses()
   }
 }

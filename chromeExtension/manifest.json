@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Onlife Learner",
+  "version": "0.1",
+  "permissions": [
+    "activeTab"
+    ],
+  "background": {
+    "scripts": ["dist/scripts/events.js"]
+  },
+  "icons": {  "16": "dist/images/icon16.png",
+              "48": "dist/images/icon48.png",
+              "128": "dist/images/icon128.png" 
+            },
+  "browser_action": {
+    "default_icon": {
+      "16": "dist/images/icon16.png",
+      "24": "dist/images/icon24.png",
+      "32": "dist/images/icon32.png"
+    },
+    "default_popup": "dist/popup.html",
+    "default_title": "OnLife Learner"
+  },
+  "content_scripts": [
+    {
+       "matches": [
+         "*://www.udemy.com/home/my-courses/learning/",
+         "*://www.udemy.com/course/*/learn/lecture/*"
+       ],
+       "js": ["dist/scripts/jquery-3.3.1.min.js", "dist/scripts/content_udemy.js"]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["dist/scripts/content_all.js"]
+    }
+   ]
+}
