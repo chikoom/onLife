@@ -28,7 +28,6 @@ router.get("/", async (req, res) => {
 
   !providers ? (providers = providerNames) : (providers = [providers]);
 
-  console.log(providers);
 
   const coursesQuery = await Course.find({
     $and: [
@@ -37,10 +36,9 @@ router.get("/", async (req, res) => {
     ],
   })
     .populate("provider")
-    .limit(80)
+    .limit(80).skip(10)
     .sort(sortMethod);
   const toSend = coursesQuery.filter((course) => providers.some(p => p == course.provider.name))
-  console.log(toSend)
 
   const courseWithMaxPrice = await Course.findOne({
     $and: [
