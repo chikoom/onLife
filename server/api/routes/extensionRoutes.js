@@ -11,9 +11,10 @@ const router = express.Router();
 
 router.put("/updateProgress", async (req, res) => {
   const { userId, providerName, courseURL, progress } = req.body;
-  const course = await Course.findOne({ courseURL: courseURL });
-  if (!course) {
-    console.log("send to crawler");
+  console.log(userId, providerName, courseURL, progress)
+  const courseInDB = await Course.findOne({ courseURL: {"$regex": courseURL} });
+  if (!courseInDB) {
+    console.log("course not in DB, sent to crawler");
     const crawler = new Crawler();
     const courseFromCrawler = await crawler.addSingleCourseByProviderName(
       providerName,
@@ -34,14 +35,15 @@ router.put("/updateProgress", async (req, res) => {
     );
     res.end();
   } else {
+      console.log('in DB')
     const courseInUser = await User.findOne({
       _id: userId,
-      "courses.course": course._id,
+      "courses.course": courseInDB._id,
     });
     if (courseInUser) {
-        console.log('course in user')
+        console.log('User has this course')
         const updatedUser = await User.findOneAndUpdate(
-            { _id: userId, "courses.course": course._id },
+            { _id: userId, "courses.course": courseInDB._id },
         {
             $set: {
                 "courses.$.progress": progress,
@@ -52,21 +54,29 @@ router.put("/updateProgress", async (req, res) => {
         
         res.send(updatedUser);
     } else {
-        console.log('course not in user')
+        console.log(`User doesn't have this course`)
         await User.findOneAndUpdate(
             { _id: userId },
             {
           $push: {
             courses: {
-              course: course,
+              course: courseInDB,
               progress: progress,
             },
           },
         }
       );
+      res.send('saved succesfully')
     }
-    res.send(course)
   }
 });
+
+router.get("/getCourse/:courseId", async (req, res) => {
+    const { courseId } = req.params
+    const course = await Course.findById(courseId)
+    courseURL = course.courseURL
+    res.send(courseURL)
+
+})
 
 module.exports = router;
