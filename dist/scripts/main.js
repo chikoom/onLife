@@ -6,11 +6,13 @@ const renderer = new Render()
 const handlePageClick = async function(){
   const currentFilters = app.getCurrentFilters()
   currentFilters.currentPageNumber = parseInt($(this).text())
-  handleSearch()
+  handleSearch(true)
 }
 
-const handleSearch = async function(){
-
+const handleSearch = async function(isPageClick){
+  if(!isPageClick){
+    currentFilters.currentPageNumber = 1
+  }
   const currentFilters = app.getCurrentFilters()
   currentFilters.minPrice = $('#input-min-price').val()
   currentFilters.maxPrice = $('#input-max-price').val()
