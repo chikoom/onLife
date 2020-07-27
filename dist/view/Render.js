@@ -11,26 +11,21 @@ export class Render {
     }
   }
   render(areaName, data){
-    console.log(`Rendering ${areaName} with data:`)
-    console.log(data)
+
     this.renderClearAreas(areaName)
     const renderHTML = this.templates[areaName]({ data })
     $(`.${areaName}-container`).empty().append(renderHTML)
     if(areaName==='user'){
-      console.log('TOT '+data.overallProgress)
       this.renderChart(data.overallProgress)
     }
     if(areaName==='search'){
-      console.log('RENDERS PROVIDERS')
       console.log(data)
-
       this.renderProviders(data.allProviders, data.selectedProviders)
       this.renderPagination(data.courses.totalCourses, data.searchQuery, data.filteredPageNumber)
     }
   }
 
   renderPagination(totalResults, searchQuery, currentPageNumber){
-    console.log(searchQuery)
     $('#field-total-results').text(totalResults)
     $('#field-serach-query').text(searchQuery)
     let numOfPages = Math.floor(totalResults/10)
@@ -43,7 +38,6 @@ export class Render {
   }
 
   renderProviders(allProviders, selectedProviders, currentPageNumber){
-    console.log()
     $('.search-filters-providers').empty()
     allProviders.forEach(provider => {
       let checked = (selectedProviders.includes(provider))? "checked" :""
@@ -95,7 +89,6 @@ export class Render {
     }
   }
   renderClearSearchFilters(){
-    console.log('Renderer Clearing the filters')
   }
 
   renderChart(totalProgress){
@@ -130,8 +123,6 @@ Handlebars.registerHelper('progressBar', function(opts) {
 })
 
 Handlebars.registerHelper('checkChecked', function(currentProvider, checkedProviders) {
-  console.log(currentProvider)
-  console.log(checkedProviders)
   return "hey"
 })
 

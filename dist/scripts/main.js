@@ -4,7 +4,6 @@ const app = new App()
 const renderer = new Render()
 
 const handlePageClick = async function(){
-  console.log($(this).text())
   const currentFilters = app.getCurrentFilters()
   currentFilters.filteredPageNumber = parseInt($(this).text())
   handleSearch()
@@ -20,13 +19,13 @@ const handleSearch = async function(){
   $('.checkbox-provider:checked').each(function(){
     checkedProviders.push($(this).val())
   })
-  //console.log(currentSelectedProviders)
+
     
   currentFilters.selectedProviders = checkedProviders
 
 
 
-  console.log(currentFilters)
+
 
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
   const searchResults = await app.getSearchResults(searchQuery,currentFilters.minPrice,currentFilters.maxPrice,currentFilters.sorting,currentFilters.filteredPageNumber,currentFilters.selectedProviders)
@@ -58,7 +57,6 @@ const handleSingleCourse = function(event){
 
 const handleUsernameClick = async function(event){
   event.preventDefault()
-  console.log('username')
   const userData = await app.getCurrentUserData()
   const userCourses = await app.getCurrentUserCourses()
   renderer.render('user', userData)
