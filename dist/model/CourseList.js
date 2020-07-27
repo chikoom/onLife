@@ -5,10 +5,10 @@ export class CourseList {
     this.searchTerm = ""
     this.filters = {
       minPrice:0,
-      maxPrice:100000000,
+      maxPrice:1000,
       sorting:'relevance',
       pageNumber:1,
-      providers:['udemy,udacity']
+      providers:[]
     }
   }
   getAllCourses(isUser){

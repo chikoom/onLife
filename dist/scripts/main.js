@@ -9,11 +9,21 @@ const handleSearch = async function(){
   console.log(currentFilters)
 
   const minPrice = $('#input-min-price').val() || currentFilters.minPrice
+  currentFilters.minPrice = minPrice
   const maxPrice = $('#input-max-price').val() || currentFilters.maxPrice
+  currentFilters.maxPrice = maxPrice
   const sorting = 0 || currentFilters.sorting
+  currentFilters.sorting = sorting
   const pageNumber = 0 || currentFilters.pageNumber
+  currentFilters.pageNumber = pageNumber
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
-  const providers = 0 || currentFilters.providers.join()
+
+  
+  
+  
+
+  //const providers = currentFilters.providers.join()
+  
 
   console.log('SEARCHING')
   console.log('q:'+searchQuery)
@@ -25,10 +35,36 @@ const handleSearch = async function(){
 
 
   const searchResults = await app.getSearchResults(searchQuery,minPrice,maxPrice,sorting,pageNumber,providers)
+  
+  const selectedProviders = []
+  if($('.checkbox-provider')){
+    $('.checkbox-provider:checked').each(function(){
+      selectedProviders.push($(this).val())
+    })
+  } else {
+    searchResults.courses.Providers.forEach(provider => selectedProviders.push(provider))
+  }
+  
+  const newProviders = searchResults.courses.Providers.map(provider => {
+    let checked = (selectedProviders.includes(provider))?'checked':''
+    return {
+      provider, checked
+    }
+  })
+  searchResults.courses.Providers = newProviders
+  console.log('SEARCH RESULTS')
+  console.log(searchResults)
+  currentFilters.providers = currentFilters.providers.providers
   renderer.render('search', { 
                               courses: searchResults.courses,
                               pageNumber:1,
-                              sortOption:'relevance'
+                              sortOption:'relevance',
+                              filteredMinPrice : currentFilters.minPrice,
+                              filteredMaxPrice : currentFilters.maxPrice,
+                              filteredPageNumber : currentFilters.pageNumber,
+                              filteredSorting : currentFilters.sorting,
+                              filteredProviders : currentFilters.providers,
+                              searchQuery: searchResults.searchTerm
                             })
   renderer.render('nav', { searchTerm: searchResults.searchTerm })
 }
