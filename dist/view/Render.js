@@ -16,7 +16,12 @@ export class Render {
     this.renderClearAreas(areaName)
     const renderHTML = this.templates[areaName]({ data })
     $(`.${areaName}-container`).empty().append(renderHTML)
+    if(areaName==='user'){
+      console.log('TOT '+data.overallProgress)
+      this.renderChart(data.overallProgress)
+    }
   }
+  
   renderClearAreas(currentRender){
     switch(currentRender){
       case 'nav':
@@ -35,17 +40,20 @@ export class Render {
         $('.userCourses-container').empty()
         break
       case 'course':
+        $('.nav-searchbar').empty()
         $('.home-container').empty()
         $('.search-container').empty()
         $('.user-container').empty()
         $('.userCourses-container').empty()
         break
       case 'user':
+        $('.nav-searchbar').empty()
         $('.home-container').empty()
         $('.search-container').empty()
         $('.course-container').empty()
         break
       case 'userCourses':
+        $('.nav-searchbar').empty()
         $('.home-container').empty()
         $('.search-container').empty()
         $('.course-container').empty()
@@ -57,6 +65,30 @@ export class Render {
   renderClearSearchFilters(){
     console.log('Renderer Clearing the filters')
   }
+
+  renderChart(totalProgress){
+    let chart = am4core.create("user-progress-chart", am4charts.PieChart);
+    chart.data = [
+      { "size": 1-totalProgress , "color": am4core.color("#95a5a6")},
+      { "size": totalProgress , "color": am4core.color("#2ecc71")}
+    ]
+    chart.innerRadius = 75;
+    let label = chart.seriesContainer.createChild(am4core.Label);
+    label.text = `${(totalProgress*100)}%`;
+    label.horizontalCenter = "middle";
+    label.verticalCenter = "middle";
+    label.fontSize = 20;
+
+    // Add and configure Series
+    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.slices.template.propertyFields.fill = "color";
+    pieSeries.labels.template.disabled = true;
+    pieSeries.ticks.template.disabled = true;
+    pieSeries.slices.template.tooltipText = "";
+    pieSeries.dataFields.value = "size";
+
+  }
+
 }
 
 Handlebars.registerHelper('progressBar', function(opts) {
