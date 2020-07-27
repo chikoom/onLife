@@ -3,19 +3,22 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
-
+let handleClick = false
 const handlePageClick = async function(){
   const currentFilters = app.getCurrentFilters()
   currentFilters.currentPageNumber = parseInt($(this).text())
+  handleClick = true
   handleSearch()
 }
 
 const handleSearch = async function(){
   const currentFilters = app.getCurrentFilters()
-  if(!$(this).hasClass('page-number')){
+  if(!handleClick){
     currentFilters.currentPageNumber = 1
+    
   }
-  
+  handleClick = false
+  console.log(currentFilters.currentPageNumber)
   currentFilters.minPrice = $('#input-min-price').val()
   currentFilters.maxPrice = $('#input-max-price').val()
   currentFilters.sorting = $('#select-sorting').val()
