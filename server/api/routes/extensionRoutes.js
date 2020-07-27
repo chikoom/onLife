@@ -11,8 +11,6 @@ const router = express.Router();
 
 router.put("/updateProgress", async (req, res) => {
   const { userId, providerName, courseURL, progress } = req.body;
-  //   const user = await User.findById(userId)
-  //   console.log(user)
   const course = await Course.findOne({ courseURL: courseURL });
   if (!course) {
     console.log("send to crawler");
@@ -21,34 +19,53 @@ router.put("/updateProgress", async (req, res) => {
       providerName,
       courseURL
     );
-    const course1 = new Course(courseFromCrawler);
-    await course1.save();
+    const course = new Course(courseFromCrawler);
+    await course.save();
     await User.findOneAndUpdate(
       { _id: userId },
       {
         $push: {
           courses: {
-            course: course1,
+            course: course,
             progress: progress,
           },
         },
       }
     );
-
     res.end();
   } else {
-    console.log(course);
-    const courseToUpdate = await User.findOneAndUpdate(
-      { _id: userId, "courses.course": course._id },
-      {
-        $set: {
-          "courses.$.progress": progress,
+    const courseInUser = await User.findOne({
+      _id: userId,
+      "courses.course": course._id,
+    });
+    if (courseInUser) {
+        console.log('course in user')
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, "courses.course": course._id },
+        {
+            $set: {
+                "courses.$.progress": progress,
+            },
         },
-      },
-      { new: true }
-    );
-    console.log(courseToUpdate);
-    res.send(courseToUpdate);
+        { new: true }
+        );
+        
+        res.send(updatedUser);
+    } else {
+        console.log('course not in user')
+        await User.findOneAndUpdate(
+            { _id: userId },
+            {
+          $push: {
+            courses: {
+              course: course,
+              progress: progress,
+            },
+          },
+        }
+      );
+    }
+    res.send(course)
   }
 });
 
