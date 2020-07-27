@@ -5,7 +5,7 @@ const User = require('../../models/User')
 
 const findUserNameInDB = (userName) => User.findOne({ name: userName })
 
-auth.post('/sighnup', async (req, res) => {
+auth.post('/signup', async (req, res) => {
     const { userName, password } = req.body
 
     const isUserNameTaken = await findUserNameInDB(userName)
