@@ -3,7 +3,7 @@ const auth = express.Router()
 const bcrypt = require('bcrypt')
 const User = require('../../models/User')
 
-const findUserNameInDB = (userName) => User.findOne({ name: userName })
+const findUserNameInDB = (userName) => User.findOne({ userName }).userName
 
 auth.post('/signup', async (req, res) => {
     const { userName, password } = req.body
