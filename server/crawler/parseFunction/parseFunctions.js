@@ -18,4 +18,17 @@ const parseUdemyScrape = async (content) => {
     }
 }
 
-module.exports = parseUdemyScrape
+const parseUdemySingleCourseUrls = async ($) => {
+    return $('div[class="course-list--container--3zXPS"]')
+        .find('div > div > a')
+        .toArray()
+        .map(a => $(a).attr('href'))
+        .filter(a => a !== 'https://business.udemy.com/request-demo/?ref=right-rail&locale=en_US')
+        .slice(0, 10)
+}
+
+module.exports =
+{
+    parseUdemyScrape,
+    parseUdemySingleCourseUrls
+}

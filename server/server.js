@@ -7,8 +7,6 @@ const Provider = require('./models/Provider')
 const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
-
-require('dotenv').config()
 const Crawler = require('./crawler/Crawler')
 
 require('dotenv').config()
