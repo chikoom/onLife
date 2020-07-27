@@ -10,10 +10,11 @@ const handlePageClick = async function(event){
 }
 
 const handleSearch = async function(event){
+  const currentFilters = app.getCurrentFilters()
   if(!$(this).hasClass('page-number')){
     currentFilters.currentPageNumber = 1
   }
-  const currentFilters = app.getCurrentFilters()
+  
   currentFilters.minPrice = $('#input-min-price').val()
   currentFilters.maxPrice = $('#input-max-price').val()
   currentFilters.sorting = $('#select-sorting').val()
