@@ -11,21 +11,34 @@ router.get("/", async (req, res) => {
   let { minPrice } = req.query;
   let { maxPrice } = req.query;
   let { sorting } = req.query;
+  let { providers } = req.query;
 
   minPrice = minPrice || 0
   maxPrice = maxPrice || 10000
 
-//   const sortMethod
-//   sorting === 'relevance' ? sortMethod = '' : sorting === 'low-high' ? 
+  providers = []
 
-const coursesQuery = await Course.find({
+  if (providers.length < 0)
+  {
+      // filter by providers 
+  } else {
+      // filter by all
+  }
+  
+  let sortMethod = ''
+  sorting === 'relevance' ? sortMethod = '' : sorting === 'low-high' 
+  ? sortMethod = 'price' : sortMethod = '-price' 
+  
+  console.log(sortMethod)
+
+const coursesQuery = await Course.find({    
     $and: [
       { name: { $regex: searchQuery, $options: "i" } },
       { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] },
     ],
   })
     .populate("provider")
-    .limit(10).sort(sortMethod)
+    .limit(50).sort(sortMethod)
     
     const courseWithMaxPrice = await Course.findOne({
         $and: [
@@ -37,12 +50,12 @@ const coursesQuery = await Course.find({
       console.log()
 
     const providersFromDB = await Provider.find({}, {"name": 1})
-    const providers = providersFromDB.map(provider => provider.name)
+    const providerNames = providersFromDB.map(provider => provider.name)
 
 
   const response = {
     courses: coursesQuery,
-    providers: providers,
+    providers: providerNames,
     maxPrice: courseWithMaxPrice.price,
     totalCourses: coursesQuery.length,
   };
