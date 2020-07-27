@@ -9,7 +9,6 @@ const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
 const extensionRouter = require("./api/routes/extensionRoutes");
 
-require('dotenv').config()
 const Crawler = require('./crawler/Crawler')
 
 require('dotenv').config()

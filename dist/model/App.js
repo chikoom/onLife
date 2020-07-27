@@ -9,9 +9,8 @@ export class App {
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
-
-  getSearchResults = async (searchQuery) => {
-    const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery)
+  getSearchResults = async (searchQuery,minPrice,maxPrice,sorting,pageNumber,providers) => {
+    const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery,minPrice,maxPrice,sorting,pageNumber,providers)
     console.log(searchResults)
     this.searchCourseList.courses = searchResults
     this.searchCourseList.searchTerm = searchQuery
@@ -42,6 +41,10 @@ export class App {
     console.log(userCourses.courses)
     this.currentLoggedUser.courses = new CourseList(userCourses.courses, true)
     return this.currentLoggedUser.courses.getAllCourses()
+  }
+
+  getCurrentFilters = () => {
+    return this.searchCourseList.filters
   }
 }
 

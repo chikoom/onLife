@@ -4,6 +4,10 @@
     --shadow-light:#c5c5c5;
     --main-font:'Roboto', sans-serif;
 }
+*{
+    padding:0;
+    margin:0;
+}
 body {
   font-family: 'Roboto', sans-serif;
   padding: 0;
@@ -148,9 +152,41 @@ outline:0;
 }
 
 /** SEARCH RESULTS **/
+.search-container{
+    display: grid;
+    grid-gap:20px;
+    grid-template-columns: 3fr 9fr;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.search-filters{
+    margin-top:15px;
+    box-shadow: 1px 1px 3px 0px #c5c5c5; 
+}
+.filters-container{
+    padding: 20px;
+}
+.search-filters-title{
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    border-bottom: 2px solid #c8c8c8;  
+}
+.search-filters-title-buttons{
+    font-size: 10px;
+    text-align: right;
+    cursor: pointer;
+}
+.search-filters-title-header{
+    display: flex;
+    align-self: flex-end;
+    font-size: 15px;
+}
+.filter-header-large{
+    font-size: 20px;
+}
 .search-inner-container{
-    max-width: 800px;
-    margin:0 auto;
+    
 }
 .search-result-container{
     display: grid;
@@ -263,13 +299,24 @@ outline:0;
     display: grid;
     grid-template-columns: 6fr 6fr;
 }
-
+.user-courses-inner{
+    margin-top:30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.user-courses-inner::after {
+    
+content: '';
+flex: auto;
+}
 .user-courses-course{
     width: 29%;
     border-radius: 15px;
     box-shadow: 1px 1px 5px 1px #eee;
     overflow: hidden;
     background-color: #fff;
+    margin-top:20px;
 }
 .user-course-image-container{
     position: relative;
@@ -343,10 +390,72 @@ text-decoration: none;
 }
 
 
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
 
 
+.slider{
+    margin-top:20px;
+    width:100%;
+}
 
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
 
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.price-min-max-container{
+    display:grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    justify-content: justify;
+    align-content: justify;
+}
+
+#price-currency{
+width:100%;
+text-align: center;
+    padding: 10px 0;
+}
+#input-min-price, #input-max-price{
+    width:97%;
+    display: block;
+    padding: 10px 1%;
+    text-align: center;
+}
+#input-max-price{
+}
+.search-filters-providers{
+    margin-top: 20px;
+}
+.filter-provider-container{
+    margin-top:5px;
+}
+.checkbox-provider{
+    width:20px;
+    height: 20px;
+    vertical-align: middle;
+}
+.filter-provider-name{
+    margin-left: 10px;
+}
 
 
 

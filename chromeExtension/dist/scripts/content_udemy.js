@@ -1,53 +1,57 @@
 console.log('content udemy')
 
+const exService = new ExtensionService()
+const userId = exService.currentUserId
+const providerName = 'udemy'
+
+const sendUpdateToServer = (userId,providerName,progress,URL) => {
+  $.ajax({
+    url: 'https://1201e47ef721.ngrok.io/extension/updateProgress/',
+    type: 'PUT',
+    data: `progress=${progress}&userId=${userId}&providerName=${providerName}&courseURL=${URL}`,
+    success: function(data) {
+      console.log("SENT")
+      console.log(data)
+    }
+  })
+}
+
+const getCurrentURL = () => {
+  const currentFullURL = window.location.href
+  const learnIndex = currentFullURL.indexOf("/learn")
+  const courseIndex = currentFullURL.indexOf("/course")
+  const courseURL = currentFullURL.substring(0,learnIndex)
+  const shorterURL = courseURL.substring(courseIndex)
+  return shorterURL
+}
+
+const getProgressFromPage = () => {
+  $("[class^=progress--progress-container]").click()
+      let progressText = $("[class^=progress-popover-content--progress-text]").text()
+      $("[class^=popover--close-]").click()
+      let myRegexp = /(\d+ )/g
+      let match = progressText.match(myRegexp) 
+      const progress = (parseInt(match[0])/parseInt(match[1])).toFixed(2)
+      return progress
+}
+
 $(document).ready( function(){
+
     setTimeout( function() {
 
-      $("[class^=progress--progress-container]").click()
-      console.log($("[class^=progress-popover-content--progress-text]").text())
-      $("[class^=popover--close-]").click()
-
-      $('input').on('click', function(){
-        console.log('input clicked')
-      })
-
-      $('body').on('click', "[class^=next-and-previous--button]", function(){
-        console.log('clicked')
-        if($(this).data().purpose === 'go-to-next'){
-          $("[class^=progress--progress-container]").click()
-          let progress = $("[class^=progress-popover-content--progress-text]").text()
-          $("[class^=popover--close-]").click()
-          let myRegexp = /(\d+)/g;
-          let match = myRegexp.exec(progress);
-          console.log(match);
-          progress.split(' ')
-          console.log(match[0])
-          console.log(match[1])
-          let lessonsLeft = parseInt(match[1])-parseInt(match[0])
-          if(  lessonsLeft === 1){
-            console.log('One Left')
-          }
-          if(  lessonsLeft === 0){
-            console.log('finished')
-          }
-        }
+      const currentProgress = getProgressFromPage()
+      const currentURL = getCurrentURL()
+      console.log("SENDING")
+      sendUpdateToServer(userId,providerName,currentProgress,currentURL)
+      
+      $('body').on('click', "[class^=next-and-previous--button]", function() {
+        const currentProgress = getProgressFromPage()
+        const currentURL = getCurrentURL()
+        console.log("SENDING")
+        sendUpdateToServer(userId,providerName,currentProgress,currentURL)
       })
   }, 3000 )
 })
-
-
-
-// window.addEventListener('load', function(){
-//   setTimeout( function() {
-//     let progressArray = Array.prototype.slice.call( document.getElementsByClassName('ellipsis') )
-//     for (var i = 0; i < progressArray.length; i++) {
-//       console.log(progressArray[i])
-//     }
-//   }, 3000 )
-  
-// })
-
-
 
 
 
