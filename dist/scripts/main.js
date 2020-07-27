@@ -4,12 +4,13 @@ const app = new App()
 const renderer = new Render()
 
 
-const handlePageClick = async function(event){
+const handlePageClick = async function(){
   const currentFilters = app.getCurrentFilters()
   currentFilters.currentPageNumber = parseInt($(this).text())
+  this.handleSearch()
 }
 
-const handleSearch = async function(event){
+const handleSearch = async function(){
   const currentFilters = app.getCurrentFilters()
   if(!$(this).hasClass('page-number')){
     currentFilters.currentPageNumber = 1
