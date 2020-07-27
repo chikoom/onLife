@@ -63,6 +63,14 @@ router.get("/courses/:userId", async (req, res) => {
     res.send(courses)
 }); 
 
+
+router.get("/sanity", async (req, res) => {
+  
+  res.send('all good')
+
+}); 
+
+
 module.exports = router
 
 
