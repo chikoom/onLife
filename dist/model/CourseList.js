@@ -7,8 +7,8 @@ export class CourseList {
       minPrice:0,
       maxPrice:1000,
       sorting:'relevance',
-      pageNumber:1,
-      providers:[]
+      currentPageNumber:1,
+      selectedProviders:[]
     }
   }
   getAllCourses(isUser){
@@ -16,7 +16,7 @@ export class CourseList {
   }
   getCourseById(courseId, isUser){
     if(!isUser){
-      return this.courses.find(course => course._id === courseId)
+      return this.courses.courses.find(course => course._id === courseId)
     }
   }
 

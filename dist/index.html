@@ -22,7 +22,79 @@
     </nav>
     <main>
       <div class="home-container"></div>
-      <div class="search-container"></div>
+      <div class="search-container-wrapper">
+        
+          <div class="search-inner-container centered">
+            <div class="search-inner-container-top">
+    
+              <div class="search-inner-container-pagination">
+                <div class="search-pagination-title">Showing <span id="field-total-results">XX</span> results for <strong><span id="field-serach-query">XX</span></strong></div>
+                <div class="search-pagination-numbers">1 2 3 4 5 ... 200</div>
+              </div>
+      
+              <div class="search-inner-container-sorting">
+                Sort by
+                <select id="select-sorting">
+                  <option value="relevance" selected="selected">Relevance</option>
+                  <option value="lowHigh">Lowest Price</option>
+                  <option value="highLow">Highest Price</option>
+                </select>
+              </div>
+      
+            </div>
+
+
+            <div class="filter-and-results">
+              <div class="search-filters">
+                <div class="search-filters-header-container filters-container">
+                  <div class="search-filters-title">
+                    <h3 class="search-filters-title-header filter-header-large">Filters</h3>
+                    <div class="search-filters-title-buttons">
+                      <span class="button-clear-all-filters">clear all</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="search-filters-price-container filters-container">
+                  <div class="search-filters-title">
+                    <h3 class="search-filters-title-header">Price</h3>
+                    <div class="search-filters-title-buttons">
+                      <span class="button-apply-filters">apply</span> |
+                      <span class="button-clear-filter-price">clear</span>
+                    </div>
+                  </div>
+                  <div class="search-filters-filters">
+                    <div class="slidecontainer">
+                      <input type="range" min="0" max="1000" value="1000" class="slider" id="filters-price-range">
+                    </div>
+                    <div class="price-min-max-container">
+                      <input type="number" placeholder="MIN" id="input-min-price" value="0">
+                      <span id="price-currency">USD</span>
+                      <input type="number" placeholder="MAX" id="input-max-price" value="100">
+                    </div>
+                  </div>
+                </div>
+                <div class="search-filters-provider-container filters-container">
+                  <div class="search-filters-title">
+                    <h3 class="search-filters-title-header">Providers</h3>
+                    <div class="search-filters-title-buttons">
+                      <span class="button-apply-filters">apply</span> |
+                      <span class="button-clear-filter-provider">clear</span>
+                    </div>
+                  </div>
+                  <div class="search-filters-providers">
+                  </div>
+                </div>
+              </div>
+            <div class="search-container"></div>
+          </div>
+
+        
+          
+
+          
+      </div>
+      
+      
       <div class="course-container"></div>
       <div class="user-container"></div>
       <div class="userCourses-container"></div>
@@ -64,69 +136,7 @@
   <!-- ---- TEMPLATE -----  SEARCH ------ -->
 
   <script id="search-template" type="text/x-handlebars-template">
-    <div class="search-filters">
-      <div class="search-filters-header-container filters-container">
-        <div class="search-filters-title">
-          <h3 class="search-filters-title-header filter-header-large">Filters</h3>
-          <div class="search-filters-title-buttons">
-            <span class="button-clear-all-filters">clear all</span>
-          </div>
-        </div>
-      </div>
-      <div class="search-filters-price-container filters-container">
-        <div class="search-filters-title">
-          <h3 class="search-filters-title-header">Price</h3>
-          <div class="search-filters-title-buttons">
-            <span class="button-apply-filters">apply</span> |
-            <span class="button-clear-filter-price">clear</span>
-          </div>
-        </div>
-        <div class="search-filters-filters">
-          <div class="slidecontainer">
-            <input type="range" min="{{data.filteredMinPrice}}" max="{{data.courses.maxPrice}}" value="{{data.filteredMaxPrice}}" class="slider" id="filters-price-range">
-          </div>
-          <div class="price-min-max-container">
-            <input type="number" placeholder="MIN" id="input-min-price" value="{{data.filteredMinPrice}}">
-            <span id="price-currency">USD</span>
-            <input type="number" placeholder="MAX" id="input-max-price" value="{{data.filteredMaxPrice}}">
-          </div>
-        </div>
-      </div>
-      <div class="search-filters-provider-container filters-container">
-        <div class="search-filters-title">
-          <h3 class="search-filters-title-header">Providers</h3>
-          <div class="search-filters-title-buttons">
-            <span class="button-apply-filters">apply</span> |
-            <span class="button-clear-filter-provider">clear</span>
-          </div>
-        </div>
-        <div class="search-filters-providers">
-          {{#each data.courses.Providers}}
-          <div class="filter-provider-container">
-            <input type="checkbox" class="checkbox-provider" value="{{this.provider}}" {{this.checked}}><span class="filter-provider-name">{{this.provider}}</span>
-          </div>
-          {{/each}}
-        </div>
-      </div>
-    </div>
-    <div class="search-inner-container centered">
-      <div class="search-inner-container-top">
-
-        <div class="search-inner-container-pagination">
-          <div class="search-pagination-title">Showing {{data.courses.totalCourses}} results for <strong>{{data.searchQuery}}</strong></div>
-          <div class="search-pagination-numbers">1 2 3 4 5 ... 200</div>
-        </div>
-
-        <div class="search-inner-container-sorting">
-          Sort by
-          <select>
-            <option>Relevance</option>
-            <option>Lowest Price</option>
-            <option>Highest Price</option>
-          </select>
-        </div>
-
-      </div>
+    
       {{#each data.courses.courses}}
         <div class="search-result-container" data-course-id="{{_id}}">
           <img class="search-result-image" src="{{imageURL}}" />
@@ -139,7 +149,7 @@
               <span class="search-result-provider-name provider-name">{{provider.name}}</span>
             </a>
           </div>
-          <span class="search-result-price">{{price}}</span>
+          <span class="search-result-price">{{#priceFormater}}{{price}}{{/priceFormater}}</span>
           <div class="search-result-buttons">
             <a id="search-result-course-details" class="search-result-button inverted-button-link">COURSE DETAILS</a>
             <a id="search-result-course-link" class="search-result-button button-link" href="{{provider.homepageURL}}{{courseURL}}" target="_blank">GO TO COURSE</a>
@@ -165,7 +175,7 @@
               <span class="course-container-provider-name provider-name">{{data.provider.name}}</span>
             </a>
           </div>
-          <span class="course-container-price">{{data.price}}</span>
+          <span class="course-container-price">{{#priceFormater}}{{data.price}}{{/priceFormater}}</span>
           <div class="course-container-info-bottom">
             <span class="course-container-language">{{data.language}}</span>
             <a class="course-container-link button-link" href="{{data.courseURL}}" target="_blank">GO TO COURSE</a>

@@ -153,15 +153,16 @@ outline:0;
 
 /** SEARCH RESULTS **/
 .search-container{
-    display: grid;
     grid-gap:20px;
-    grid-template-columns: 3fr 9fr;
     max-width: 1000px;
     margin: 0 auto;
-    padding-top: 50px;
+}
+.filter-and-results{
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 3fr 9fr;
 }
 .search-filters{
-    margin-top:15px;
     box-shadow: 1px 1px 3px 0px #c5c5c5; 
 }
 .filters-container{
@@ -196,7 +197,7 @@ outline:0;
     "img prc prc prc prc prc"
     "img prv prv btns btns btns"
     ;
-    margin: 15px auto;
+    margin:0 auto 10px auto;
     padding: 20px;
     box-shadow: 1px 1px 3px 0px #c5c5c5;
 }
@@ -459,13 +460,18 @@ text-align: center;
 .search-inner-container-top{
     display: grid;
     grid-template-columns: 6fr 6fr;
-    margin-top:-40px;
 }
 .search-inner-container-sorting{
 text-align:right;
 }
-
-
+.page-number{
+    cursor: pointer;
+    padding: 2px 4px;
+}
+.page-selected{
+    background-color: #333;
+    color:#fff;
+}
 
 
 
