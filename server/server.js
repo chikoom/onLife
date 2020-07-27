@@ -8,6 +8,7 @@ const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
 const extensionRouter = require("./api/routes/extensionRoutes");
+const authRouter = require('./api/routes/authRoutes')
 
 const Crawler = require('./crawler/Crawler')
 
@@ -24,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use("/api/user", userRouter);
 app.use("/api/courses", coursesRouter);
-app.use("/extension/", extensionRouter);
+app.use("/extension", extensionRouter);
+app.user("/auth", authRouter)
 
 const { PORT } = process.env
 app.listen(PORT, () => {
