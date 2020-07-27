@@ -6,13 +6,23 @@ class Crawler {
     constructor() {
         this.scrapeTemplates = [
             {
-                provider: 'Udemy',
-                url: "https://www.udemy.com/courses/development/web-development/",
-                shortUrl: "https://www.udemy.com",
-                parseFnc: parseUdemyScrape,
-                singleCourseUrlParse: parseUdemySingleCourseUrls
+                provider: 'udemy',
+                scraping:
+                {
+                    url: "https://www.udemy.com/courses/development/web-development/?p=2",
+                    shortUrl: "https://www.udemy.com",
+                    parseFnc: parseUdemyScrape,
+                    singleCourseUrlParse: parseUdemySingleCourseUrls
+                }
             }
         ]
+    }
+
+    async addSingleCourseByProviderName(providerName, endPoint) {
+        const { shortUrl, parseFnc } = this.getScrapingTemplateByName(providerName).scraping
+        const browser = await puppeteer.launch()
+
+        return await this.SingleCourseScrape(browser, shortUrl, endPoint, parseFnc)
     }
 
     async SingleCourseScrape(browser, shortUrl, endPoint, parseFnc) {
@@ -40,11 +50,19 @@ class Crawler {
         const $ = cheerio.load(content)
 
         const listOfCourseUrls = await singleCourseUrlParse($)
-        return await Promise.all(listOfCourseUrls.map(p => this.SingleCourseScrape(browser, shortUrl, p, parseFnc)))
+        const listOfParsedData = await Promise.all(listOfCourseUrls.map(p => this.SingleCourseScrape(browser, shortUrl, p, parseFnc)))
+
+        await mainPage.waitFor(60000)
+        await browser.close()
+        return listOfParsedData
+    }
+
+    getScrapingTemplateByName(providerName) {
+        return this.scrapeTemplates.find(t => t.provider === providerName.toLowerCase())
     }
 
     async RIPPC() {
-        this.scrapeTemplates.forEach(s => this.scrapeCourseListPage(s))
+        return await Promise.all(this.scrapeTemplates.map(s => this.scrapeCourseListPage(s.scraping)))
     }
 }
 
