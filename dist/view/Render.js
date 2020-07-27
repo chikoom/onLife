@@ -97,4 +97,10 @@ Handlebars.registerHelper('progressBar', function(opts) {
   return decNumber
 })
 
+Handlebars.registerHelper('checkChecked', function(currentProvider, checkedProviders) {
+  console.log(currentProvider)
+  console.log(checkedProviders)
+  return "hey"
+})
+
 
