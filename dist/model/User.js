@@ -5,4 +5,3 @@ export class User {
     this.courses = {}
   }
 }
-console.log('User loaded')

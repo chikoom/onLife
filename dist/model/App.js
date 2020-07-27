@@ -11,7 +11,6 @@ export class App {
   }
   getSearchResults = async (searchQuery,minPrice,maxPrice,sorting,pageNumber,providers) => {
     const searchResults = await this.appService.fetchSearchResultsFromDB(searchQuery,minPrice,maxPrice,sorting,pageNumber,providers)
-    console.log(searchResults)
     this.searchCourseList.courses = searchResults
     this.searchCourseList.searchTerm = searchQuery
     return {
@@ -30,15 +29,11 @@ export class App {
 
   getCurrentUserData = async () => {
     const userData = await this.appService.fetchUserInfoFromDB(this.currentLoggedUser.id)
-    console.log('User Data')
-    console.log(userData)
     return userData
   }
 
   getCurrentUserCourses = async () => {
     const userCourses = await this.appService.fetchUserCoursesFromDB(this.currentLoggedUser.id)
-    console.log('User Courses')
-    console.log(userCourses.courses)
     this.currentLoggedUser.courses = new CourseList(userCourses.courses, true)
     return this.currentLoggedUser.courses.getAllCourses()
   }
