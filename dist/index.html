@@ -22,47 +22,7 @@
     </nav>
     <main>
       <div class="home-container"></div>
-
-
-      <div class="search-container-wrapper">
-        <div class="search-filters">
-          <div class="search-filters-header-container">
-            <div class="search-filters-title">
-              <h3 class="search-filters-title-header">Filters</h3>
-              <div class="search-filters-title-buttons">
-                <span class="button-clear-all-filters">clear all</span>
-              </div>
-            </div>
-          </div>
-          <div class="search-filters-price-container">
-            <div class="search-filters-title">
-              <h3 class="search-filters-title-header">Price</h3>
-              <div class="search-filters-title-buttons">
-                <span class="button-apply-filters">apply</span> |
-                <span class="button-clear-filter-price">clear</span>
-              </div>
-            </div>
-          </div>
-          <div class="search-filters-provider-container">
-            <div class="search-filters-title">
-              <h3 class="search-filters-title-header">Providers</h3>
-              <div class="search-filters-title-buttons">
-                <span class="button-apply-filters">apply</span> |
-                <span class="button-clear-filter-provider">clear</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="search-container"></div>
-
-      </div>
-
-
-
-
-
-
+      <div class="search-container"></div>
       <div class="course-container"></div>
       <div class="user-container"></div>
       <div class="userCourses-container"></div>
@@ -104,6 +64,55 @@
   <!-- ---- TEMPLATE -----  SEARCH ------ -->
 
   <script id="search-template" type="text/x-handlebars-template">
+    <div class="search-filters">
+      <div class="search-filters-header-container filters-container">
+        <div class="search-filters-title">
+          <h3 class="search-filters-title-header filter-header-large">Filters</h3>
+          <div class="search-filters-title-buttons">
+            <span class="button-clear-all-filters">clear all</span>
+          </div>
+        </div>
+      </div>
+      <div class="search-filters-price-container filters-container">
+        <div class="search-filters-title">
+          <h3 class="search-filters-title-header">Price</h3>
+          <div class="search-filters-title-buttons">
+            <span class="button-apply-filters">apply</span> |
+            <span class="button-clear-filter-price">clear</span>
+          </div>
+        </div>
+        <div class="search-filters-filters">
+          <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="filters-price-range">
+          </div>
+          <div class="price-min-max-container">
+            <input type="number" placeholder="MIN" id="input-min-price">
+            <span id="price-currency">USD</span>
+            <input type="number" placeholder="MAX" id="input-max-price">
+          </div>
+        </div>
+      </div>
+      <div class="search-filters-provider-container filters-container">
+        <div class="search-filters-title">
+          <h3 class="search-filters-title-header">Providers</h3>
+          <div class="search-filters-title-buttons">
+            <span class="button-apply-filters">apply</span> |
+            <span class="button-clear-filter-provider">clear</span>
+          </div>
+        </div>
+        <div class="search-filters-providers">
+          <div class="filter-provider-container">
+            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Udemy</span>
+          </div>
+          <div class="filter-provider-container">
+            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Coursera</span>
+          </div>
+          <div class="filter-provider-container">
+            <input type="checkbox" class="checkbox-provider"><span class="filter-provider-name">Code Acedemy</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="search-inner-container centered">
       {{#each data.courses}}
         <div class="search-result-container" data-course-id="{{_id}}">
@@ -120,7 +129,7 @@
           <span class="search-result-price">{{price}}</span>
           <div class="search-result-buttons">
             <a id="search-result-course-details" class="search-result-button inverted-button-link">COURSE DETAILS</a>
-            <a id="search-result-course-link" class="search-result-button button-link" href="{{courseURL}}" target="_blank">GO TO COURSE</a>
+            <a id="search-result-course-link" class="search-result-button button-link" href="{{provider.homepageURL}}{{courseURL}}" target="_blank">GO TO COURSE</a>
           </div>
         </div>
       {{/each}}
@@ -154,16 +163,18 @@
         <img class="course-container-image" src="{{data.imageURL}}" />
       </div>
       <hr />
-      <div class="course-container-description">{{data.description}}</div>
+      <div class="course-container-description">{{{data.description}}}</div>
       <hr />
       <h2 class="course-container-lessons-header">Lessons:</h2>
       <div class="course-container-lessons-container">
+        <ul>
         {{#each data.lessons}}
-          <div class="course-container-lessons-inner">
+          <li class="course-container-lessons-inner">
             <h3 class="course-container-lessons-title">{{name}}</h3>
             <div class="course-container-lessons-description">{{description}}</div>
-          </div>
+          </li>
         {{/each}}
+        </ul>
       </div>
     </div>
   </script>

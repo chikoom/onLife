@@ -4,9 +4,13 @@ const app = new App()
 const renderer = new Render()
 
 const handleSearch = async function(){
+
+  const minPrice = $('#input-min-price').val() || 0
+  const maxPrice = $('#input-max-price').val() || 0
+
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
   console.log('q:'+searchQuery)
-  const searchResults = await app.getSearchResults(searchQuery)
+  const searchResults = await app.getSearchResults(searchQuery,minPrice,maxPrice)
   renderer.render('search', { 
                               courses: searchResults.courses,
                               pageNumber:1,
@@ -40,6 +44,7 @@ const init = () => {
   renderer.render('home', {})
 }
 
+$('body').on('click', '.button-apply-filters', handleSearch)
 $('body').on('click', '#button-back-to-search', handleSearch)
 $('#logo-container').on('click', handleGoToHome)
 $('body').on('click', '.button-search', handleSearch)
