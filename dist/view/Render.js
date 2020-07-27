@@ -21,7 +21,7 @@ export class Render {
     if(areaName==='search'){
       console.log(data)
       this.renderProviders(data.allProviders, data.selectedProviders)
-      this.renderPagination(data.courses.totalCourses, data.searchQuery, data.filteredPageNumber)
+      this.renderPagination(data.courses.totalCourses, data.searchQuery, data.currentPageNumber)
     }
   }
 

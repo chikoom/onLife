@@ -40,7 +40,7 @@ const handleSearch = async function(){
                               selectedProviders: currentFilters.selectedProviders,
                               filteredMinPrice : currentFilters.minPrice,
                               filteredMaxPrice : currentFilters.maxPrice,
-                              filteredPageNumber : currentFilters.filteredPageNumber,
+                              currentPageNumber : currentFilters.currentPageNumber,
                               filteredSorting : currentFilters.sorting,
                               filteredProviders : currentFilters.providers,
                               searchQuery: searchResults.searchTerm
