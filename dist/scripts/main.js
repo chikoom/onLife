@@ -28,7 +28,7 @@ const handleSearch = async function(){
 
 
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
-  const searchResults = await app.getSearchResults(searchQuery,currentFilters.minPrice,currentFilters.maxPrice,currentFilters.sorting,currentFilters.filteredPageNumber,currentFilters.selectedProviders)
+  const searchResults = await app.getSearchResults(searchQuery,currentFilters.minPrice,currentFilters.maxPrice,currentFilters.sorting,currentFilters.currentPageNumber,currentFilters.selectedProviders)
   
   
 
