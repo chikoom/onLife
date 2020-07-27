@@ -10,7 +10,7 @@ class Crawler {
                 provider: 'udemy',
                 scraping:
                 {
-                    url: "https://www.udemy.com/courses/development/web-development/?p=2",
+                    url: "https://www.udemy.com/courses/development/web-development/?p=1",
                     shortUrl: "https://www.udemy.com",
                     parseFnc: parseUdemyScrape,
                     singleCourseUrlParse: parseUdemySingleCourseUrls,
@@ -41,7 +41,6 @@ class Crawler {
     async SingleCourseScrape(browser, shortUrl, endPoint, parseFnc) {
         const page = await browser.newPage()
         await page.goto(shortUrl + endPoint, { waitUntil: 'networkidle2' })
-        await page.waitFor(10)
         const content = await page.content()
         return await parseFnc(content)
     }
