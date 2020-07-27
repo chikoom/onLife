@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
-const { parseUdemyScrape, parseUdemySingleCourseUrls } = require('./parseFunction/parseFunctions')
+const { parseUdemyScrape, parseUdemySingleCourseUrls, udemyPageActionsFunction } = require('./parseFunction/parseFunctionsUdemy')
+const { parseUdacityScrape, parseUdacitySingleCourseUrls, udacityPageActionsFunction} = require('./parseFunction/parseFunctionsUdacity')
 
 class Crawler {
     constructor() {
@@ -12,7 +13,19 @@ class Crawler {
                     url: "https://www.udemy.com/courses/development/web-development/?p=2",
                     shortUrl: "https://www.udemy.com",
                     parseFnc: parseUdemyScrape,
-                    singleCourseUrlParse: parseUdemySingleCourseUrls
+                    singleCourseUrlParse: parseUdemySingleCourseUrls,
+                    pageActions: udemyPageActionsFunction
+                }
+            },
+            {
+                provider: 'udacity',
+                scraping:
+                {
+                    url: 'https://www.udacity.com/courses/all',
+                    shortUrl: 'https://www.udacity.com',
+                    parseFnc: parseUdacityScrape,
+                    singleCourseUrlParse: parseUdacitySingleCourseUrls,
+                    pageActions: udacityPageActionsFunction
                 }
             }
         ]
@@ -34,17 +47,14 @@ class Crawler {
     }
 
     async scrapeCourseListPage(scrapeTemplate) {
-        const { url, singleCourseUrlParse, shortUrl, parseFnc } = scrapeTemplate
+        const { url, singleCourseUrlParse, shortUrl, parseFnc, pageActions } = scrapeTemplate
 
         const browser = await puppeteer.launch({ headless: false })
 
         const mainPage = await browser.newPage()
         await mainPage.goto(url, { waitUntil: 'networkidle2' })
 
-        await mainPage.evaluate(() => {
-            window.scrollTo(0, 2700)
-        })
-        await mainPage.waitFor(10000)
+        await pageActions(mainPage)
 
         const content = await mainPage.content()
         const $ = cheerio.load(content)
