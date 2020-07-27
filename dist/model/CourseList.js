@@ -3,6 +3,13 @@ export class CourseList {
     this.isUser = false || isUser
     this.courses = courses || []
     this.searchTerm = ""
+    this.filters = {
+      minPrice:0,
+      maxPrice:100000000,
+      sorting:'relevance',
+      pageNumber:1,
+      providers:['udemy,udacity']
+    }
   }
   getAllCourses(isUser){
     return this.courses

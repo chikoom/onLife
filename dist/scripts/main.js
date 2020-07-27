@@ -5,12 +5,26 @@ const renderer = new Render()
 
 const handleSearch = async function(){
 
-  const minPrice = $('#input-min-price').val() || 0
-  const maxPrice = $('#input-max-price').val() || 0
+  const currentFilters = app.getCurrentFilters()
+  console.log(currentFilters)
 
+  const minPrice = $('#input-min-price').val() || currentFilters.minPrice
+  const maxPrice = $('#input-max-price').val() || currentFilters.maxPrice
+  const sorting = 0 || currentFilters.sorting
+  const pageNumber = 0 || currentFilters.pageNumber
   const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
+  const providers = 0 || currentFilters.providers.join()
+
+  console.log('SEARCHING')
   console.log('q:'+searchQuery)
-  const searchResults = await app.getSearchResults(searchQuery,minPrice,maxPrice)
+  console.log('mp:'+minPrice)
+  console.log('xp:'+maxPrice)
+  console.log('srt:'+sorting)
+  console.log('pg:'+pageNumber)
+  console.log('pr:'+providers)
+
+
+  const searchResults = await app.getSearchResults(searchQuery,minPrice,maxPrice,sorting,pageNumber,providers)
   renderer.render('search', { 
                               courses: searchResults.courses,
                               pageNumber:1,
