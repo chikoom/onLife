@@ -14,4 +14,7 @@ export class AppService {
   async loginToDB(userName, password){
     return await $.post(`/auth/login/`, {userName,password})
   }
+  async fetchUserJobsFromDB(userId){
+    return await $.get(`/api/user/jobs/${userId}`)
+  }
 }

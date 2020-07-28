@@ -66,8 +66,9 @@ const handleUsernameClick = async function(event){
   event.preventDefault()
   const userData = await app.getCurrentUserData()
   const userCourses = await app.getCurrentUserCourses()
+  const userJobs = await app.getCurrentUserJobs()
   renderer.render('user', userData)
-  renderer.render('userCourses', userCourses)
+  renderer.render('userCourses', {userCourses,userJobs})
 }
 
 const handleGoToHome = function(){

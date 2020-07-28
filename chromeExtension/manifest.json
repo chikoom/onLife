@@ -3,7 +3,8 @@
   "name": "Onlife Learner",
   "version": "0.1",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
     ],
   "background": {
     "scripts": ["dist/scripts/events.js"]

@@ -37,6 +37,9 @@ export class App {
     return userData
   }
 
+  getCurrentUserJobs = async () => {
+    return await this.appService.fetchUserJobsFromDB(this.currentLoggedUser.id)
+  }
   getCurrentUserCourses = async () => {
     const userCourses = await this.appService.fetchUserCoursesFromDB(this.currentLoggedUser.id)
     this.currentLoggedUser.courses = new CourseList(userCourses.courses, true)
