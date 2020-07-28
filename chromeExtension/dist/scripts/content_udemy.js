@@ -6,7 +6,7 @@ const providerName = 'udemy'
 
 const sendUpdateToServer = (userId,providerName,progress,URL) => {
   $.ajax({
-    url: 'https://9e861c0f488f.ngrok.io/extension/updateProgress/',
+    url: 'https://onlife.herokuapp.com/extension/updateProgress/',
     type: 'PUT',
     data: `progress=${progress}&userId=${userId}&providerName=${providerName}&courseURL=${URL}`,
     success: function(data) {
