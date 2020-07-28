@@ -11,7 +11,7 @@ export class Render {
     }
   }
   render(areaName, data){
-
+console.log(data)
     this.renderClearAreas(areaName)
     const renderHTML = this.templates[areaName]({ data })
     $(`.${areaName}-container`).empty().append(renderHTML)
@@ -148,4 +148,8 @@ Handlebars.registerHelper('priceFormater', function(opts) {
   return priceNumber
 })
 
+Handlebars.registerHelper('twoPercent', function(opts) {
+  let total = opts.fn(this)
+  return `${(total * 100)}%`
+})
 
