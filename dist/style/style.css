@@ -173,6 +173,7 @@ outline:0;
     padding-top: 10px;
     display: grid;
     grid-template-columns: 3fr 9fr;
+    grid-gap: 40px;
 }
 .search-filters{
     box-shadow: 1px 1px 3px 0px #c5c5c5; 
@@ -207,7 +208,7 @@ outline:0;
     "img ttl ttl ttl ttl ttl"
     "img slg slg slg slg slg"
     "img prc prc prc prc prc"
-    "img prv prv btns btns btns"
+    "img prv prv prv btns btns"
     ;
     margin:0 auto 10px auto;
     padding: 20px;
@@ -216,6 +217,7 @@ outline:0;
 .search-result-image{
     grid-area: img;
     height: 150px;
+    min-width: 270px;
 }
 .search-result-header{
     font-size: 20px;
@@ -359,14 +361,15 @@ flex: auto;
     margin: 0 auto;
 }
 .user-course-title{
-    height: 30px;
+    height: 50px;
     color:#000000;
     margin:0;
-    padding: 0;
+    padding:10px
     width:100%;
     margin-block-start: 0;
     margin-block-end: 0;
     padding: 10px;
+    font-size: 15px;
 }
 .user-course-provider-container{
     position: absolute;
@@ -502,8 +505,8 @@ text-align: center;
     margin-top: 20px;
     display: grid;
     grid-template-columns: 6fr 6fr;
-    width:75%;
-    margin-left:25%;
+    width: 72%;
+    margin-left: 28%;
 }
 .search-inner-container-sorting{
 text-align:right;
@@ -587,10 +590,95 @@ width:70%;
 }
 
 
+.jobs-title {
+    margin:100px auto 20px;
+    padding-bottom: 20px;
+    border-bottom: 5px solid #eee;
+    font-size: 30px;
+    font-weight: 300;
+}
+.user-container{
+margin-top:50px;
+}
+.user-container-username{
+font-size: 40px;
+border-bottom: 5px solid #eee;
+}
+.user-container-analytics-info{
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 300;
+}
+.search-inner-container-top{
+display: none;
+}
+.search-filters{
+display: none;
+}
+#search-result-course-details, #search-result-course-link{
+  font-size: 12px;
+  padding: 10px 3px;
+  width: 120px;
+}
 
 
+#select-sorting{
+  padding: 5px;
+}
 
+.overall-progress-title{
+text-align: center;
+    margin-top: 30px;
+    font-weight: 300;
+}
+.user-container-data{
+    padding-bottom: 30px;
+border-bottom: 5px solid #eee;
+}
 
-
-
-
+.job-logo-container{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    height: 200px;
+}
+.job-logo{
+    width:100px;
+}
+.job-buttons-container{
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    margin-top: 20px;
+    justify-content: center;
+    align-content: center;
+    width:100%;
+}
+.job-buttons-container a{
+    text-align: center;
+    width:100%;
+    height: 30px;
+    border:0;
+    outline: 0;
+    border-radius: 2px;
+    padding: 20px 0 ;
+    font-size: 14px;
+    display: block;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
+    color:#333;
+}
+.job-buttons-container a:hover{
+    font-weight: 600;
+}
+.course-container-description{
+    padding: 30px;
+}
+.course-container-lessons-header{
+font-size: 30px;
+    margin-top:30px;
+}
+.course-container-lessons-container{
+padding: 30px;
+    
+}

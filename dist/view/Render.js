@@ -61,12 +61,16 @@ console.log(data)
         $('.user-container').empty()
         $('.userCourses-container').empty()
         $('.search-container-wrapper').hide()
+        $('.search-filters').hide()
+        $('.search-inner-container-top').hide()
         break
       case 'search':
         $('.home-container').empty()
         $('.course-container').empty()
         $('.user-container').empty()
         $('.search-container-wrapper').show()
+        $('.search-filters').show()
+        $('.search-inner-container-top').show()
         break
       case 'course':
         $('.nav-searchbar').empty()
@@ -75,6 +79,8 @@ console.log(data)
         $('.user-container').empty()
         $('.userCourses-container').empty()
         $('.search-container-wrapper').hide()
+        $('.search-filters').hide()
+        $('.search-inner-container-top').hide()
         break
       case 'user':
         $('.nav-searchbar').empty()
@@ -82,6 +88,8 @@ console.log(data)
         $('.search-container').empty()
         $('.course-container').empty()
         $('.search-container-wrapper').hide()
+        $('.search-filters').hide()
+        $('.search-inner-container-top').hide()
         break
       case 'userCourses':
         $('.nav-searchbar').empty()
@@ -89,6 +97,8 @@ console.log(data)
         $('.search-container').empty()
         $('.course-container').empty()
         $('.search-container-wrapper').hide()
+        $('.search-filters').hide()
+        $('.search-inner-container-top').hide()
         break
       case 'loginSignup':
         break
@@ -136,7 +146,7 @@ console.log(data)
 Handlebars.registerHelper('progressBar', function(opts) {
   let decNumber = opts.fn(this)
   decNumber = decNumber*100
-  return decNumber
+  return Math.floor(decNumber)
 })
 
 Handlebars.registerHelper('descriptionShortner', function(opts) {
@@ -152,5 +162,11 @@ Handlebars.registerHelper('priceFormater', function(opts) {
 Handlebars.registerHelper('twoPercent', function(opts) {
   let total = opts.fn(this)
   return `${(total * 100)}%`
+})
+
+Handlebars.registerHelper('numOrNone', function(opts) {
+  let total = opts.fn(this)
+  
+  return (total)||0
 })
 
