@@ -115,11 +115,11 @@
     
     <div class="nav-loginSignup">
       <div class="nav-loginSignup-user">
-        {{#unless data}}
+        {{#unless data.currentUser}}
         <span class="button-login-signup">Login / Signup</span>
         {{/unless}}
-        {{#if data}}
-        <span class="button-username">{{data}}</span>
+        {{#if data.currentUser}}
+        <span class="button-username">{{data.currentUser}}</span>
         {{/if}}
 
       </div>

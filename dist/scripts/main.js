@@ -51,7 +51,7 @@ const handleSearch = async function(){
                               filteredProviders : currentFilters.providers,
                               searchQuery: searchResults.searchTerm
                             })
-  renderer.render('nav', { searchTerm: searchResults.searchTerm })
+  renderer.render('nav', { searchTerm: searchResults.searchTerm, currentUser: app.currentLoggedUser.username })
 }
 
 const handleSingleCourse = function(event){
@@ -109,7 +109,7 @@ const handleLoginSignupButton = async function(){
 }
 
 const init = () => {
-  renderer.render('nav', app.currentLoggedUser.username)
+  renderer.render('nav', {currentUser: app.currentLoggedUser.username})
   renderer.render('home', {})
 }
 
