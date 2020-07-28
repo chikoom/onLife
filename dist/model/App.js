@@ -4,13 +4,13 @@ import { User } from '../model/User.js'
 
 export class App {
   constructor(){
-    let loggedUser =  {username:'', password:''}
-    if(localStorage.loggedUser){
-      loggedUser = JSON.parse(localStorage.loggedUser)
+    let loggedUser = {loggedUser:{username:'',userID:''}}
+    if(localStorage.onLife){
+      loggedUser = JSON.parse(localStorage.onLife)
     }
     
     this.appService = new AppService()
-    this.currentLoggedUser = new User(loggedUser.userID, loggedUser.username)
+    this.currentLoggedUser = new User(loggedUser.loggedUser.userID, loggedUser.loggedUser.username)
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
@@ -60,7 +60,7 @@ export class App {
     console.log(userID)
     this.currentLoggedUser.id = userID
     this.currentLoggedUser.username = username
-    localStorage.setItem('loggedUser', JSON.stringify({username,userID}))
+    localStorage.setItem('onLife', JSON.stringify({loggedUser:{username,userID}}))
   }
 }
 
