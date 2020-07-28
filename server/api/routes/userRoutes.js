@@ -13,7 +13,6 @@ router.get("/:userId", async (req, res) => {
   try {
     let returnData;
     if (user) {
-      // console.log(user)
       let username = user.userName;
       let userCoursesArray = user.courses;
       let numberOfCourses = userCoursesArray.length;
@@ -25,7 +24,6 @@ router.get("/:userId", async (req, res) => {
         (course) => (overallProgress += course.progress)
       );
       overallProgress /= numberOfCourses;
-      console.log(numberOfCourses, overallProgress);
       if (!numberOfCourses) {
         returnData = {
           username,

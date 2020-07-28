@@ -19,7 +19,6 @@ export class Render {
       this.renderChart(data.overallProgress)
     }
     if(areaName==='search'){
-      console.log(data)
       this.renderProviders(data.allProviders, data.selectedProviders)
       this.renderPagination(data.courses.totalCourses, data.searchQuery, data.currentPageNumber)
     }

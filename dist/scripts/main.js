@@ -18,7 +18,6 @@ const handleSearch = async function(){
     
   }
   handleClick = false
-  console.log(currentFilters.currentPageNumber)
   currentFilters.minPrice = $('#input-min-price').val()
   currentFilters.maxPrice = $('#input-max-price').val()
   currentFilters.sorting = $('#select-sorting').val()
@@ -81,7 +80,6 @@ const handleLoginSignup = function(){
 }
 
 const handleTabButton = function(){
-  console.log($(this).val())
   $('.button-tab').toggleClass('button_on')
   $('#loginSignup-button').val($(this).val())
   $('#loginSignup-button').text($(this).val().toUpperCase())

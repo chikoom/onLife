@@ -11,7 +11,6 @@ const router = express.Router();
 
 router.put("/updateProgress", async (req, res) => {
   const { userId, providerName, courseURL, progress } = req.body;
-  console.log(userId, providerName, courseURL, progress)
   const courseInDB = await Course.findOne({ courseURL: {"$regex": courseURL} });
   if (!courseInDB) {
     console.log("course not in DB, sent to crawler");

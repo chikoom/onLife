@@ -59,8 +59,6 @@ export class App {
     return
   }
   logUserIn(username, userID){
-    console.log(username)
-    console.log(userID)
     this.currentLoggedUser.id = userID
     this.currentLoggedUser.username = username
     localStorage.setItem('onLife', JSON.stringify({loggedUser:{username,userID}}))
