@@ -67,6 +67,7 @@ router.get("/courses/:userId", async (req, res) => {
 });
 
 router.get("/jobs/:userId", async (req, res) => {
+
   let { userId } = req.params;
   let jobsArray = [];
   let searchDictionary = [

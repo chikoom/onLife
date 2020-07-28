@@ -116,7 +116,7 @@
     <div class="nav-loginSignup">
       <div class="nav-loginSignup-user">
         <span class="button-login-signup">Login / Signup</span>
-        <span class="button-username"></span>
+        <span class="button-username">{{data}}</span>
       </div>
     </div>
   </script>
@@ -212,6 +212,7 @@
     <div class="user-container-inner centered">
       <h1 class="user-container-username">{{data.username}}</h1>
       <hr />
+      <div class="user-container-data">
       <div class="user-container-analytics">
         <div class="user-container-analytics-info">
           <div class="user-container-analytics-total">Total courses: {{data.numberOfCourses}}</div>
@@ -222,6 +223,8 @@
           <div id="user-progress-chart" style="width: 100%; height:250px;"></div>
         </div>  
       </div>
+      </div>
+    </div>
       <hr />
     </div>
   </script>
@@ -230,7 +233,7 @@
 
   <script id="userCourses-template" type="text/x-handlebars-template">
     <div class="user-courses-inner centered">
-      {{#each data}}
+      {{#each data.userCourses}}
         <div class="user-courses-course">
           <div class="user-course-image-container">
             <img class="user-course-image" src="{{course.imageURL}}" />
@@ -254,6 +257,18 @@
           </div>
         </div>
       {{/each}}
+      <div class="user-container-jobs centered">
+        {{#each data.userJobs}}
+          <div class="course user-courses-course">
+            <div class="title"><b>{{title}}</b></div>
+            <div class="company">{{company}}</div>
+            <div class="type">{{type}}</div>
+            <button href="{{apply}}" class="job-button apply">Apply</button>
+            <button href="{{url}}" class="job-button url">More details</button>
+          </div>
+      {{/each}}
+      </div>
+      
     </div>
   </script>
   
@@ -261,7 +276,6 @@
 
   <script id="loginSignup-template" type="text/x-handlebars-template">
     <div class="loginSignup-wrapper">
-      <button id="button-close-signup">X</button>
       <div class="loginSignup-inner">
         <div class="loginSignup-inner-buttons">
           <button class="button-tab button-signup-tab button_on" value="signup">Signup</button>
