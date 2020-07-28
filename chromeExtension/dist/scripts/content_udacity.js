@@ -1,11 +1,12 @@
-console.log('User Browser - Content Script ALLL')
+console.log('content udacity')
+
 const exService = new ExtensionService()
 const userId = exService.currentUserId
 const providerName = 'udacity'
 
 const sendUpdateToServer = (userId,providerName,progress,URL) => {
   $.ajax({
-    url: 'https://9e861c0f488f.ngrok.io/extension/updateProgress/',
+    url: 'https://ce53b3b92666.ngrok.io/extension/updateProgress/',
     type: 'PUT',
     data: `progress=${progress}&userId=${userId}&providerName=${providerName}&courseURL=${URL}`,
     success: function(data) {
@@ -17,38 +18,16 @@ const sendUpdateToServer = (userId,providerName,progress,URL) => {
 
 const getCurrentURL = () => {
   const currentFullURL = window.location.href
-  const learnIndex = currentFullURL.indexOf("/courses")+9
-  const shorterURL = currentFullURL.substring(learnIndex)
-  console.log(shorterURL)
-  //const courseURL = currentFullURL.substring(0,learnIndex)
-  //const shorterURL = courseURL.substring(courseIndex)
+  const learnIndex = currentFullURL.indexOf("/learn")
+  const courseIndex = currentFullURL.indexOf("/course")
+  const courseURL = currentFullURL.substring(0,learnIndex)
+  const shorterURL = courseURL.substring(courseIndex)
   return shorterURL
 }
 
 const getProgressFromPage = () => {
-  let lessonsCount = 0
-  let finished = 0
-  $("[class^=_progress-bar--completion-amount]").each(function(){
-    ++lessonsCount
-    console.log($(this).text())
-    if($(this).text() === 'Not Started'){
 
-    }else if(parseInt($(this).text()) > 0){
-      finished += (parseInt($(this).text())/100)
-    }
-  })
-
-  let newProgress = $("[class^=deadline-bar--title-]").text()
-  let textProgress = parseInt(newProgress)/100
-  console.log(newProgress)
-  console.log(parseInt(newProgress)/100)
-  let avgTotalProgress = finished/lessonsCount
-  console.log(avgTotalProgress)
-  return textProgress
-
-
-  
-
+  // $("[class^=progress--progress-container]").click()
   //     let progressText = $("[class^=progress-popover-content--progress-text]").text()
   //     $("[class^=popover--close-]").click()
   //     let myRegexp = /(\d+ )/g
