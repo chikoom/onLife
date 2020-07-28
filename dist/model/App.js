@@ -10,7 +10,7 @@ export class App {
     }
     
     this.appService = new AppService()
-    this.currentLoggedUser = new User(loggedUser.userID, loggedUser.userID.username)
+    this.currentLoggedUser = new User(loggedUser.userID, loggedUser.username)
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
