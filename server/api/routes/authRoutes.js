@@ -22,8 +22,8 @@ auth.post('/signup', async (req, res) => {
 
 auth.post('/login', async (req, res) => {
     const { userName, password } = req.body
-
     const isUserNameInDB = await findUserNameInDB(userName)
+
     if (!isUserNameInDB) {
         res.status(404).send('User name not in data base')
     } else {
