@@ -12,21 +12,24 @@ router.get("/", async (req, res) => {
   let { maxPrice } = req.query;
   let { sorting } = req.query;
   let { providers } = req.query;
+  let { pageNumber } = req.query
 
   minPrice = minPrice || 0;
   maxPrice = maxPrice || 10000;
+  pageNumber = pageNumber || 1
 
+console.log(pageNumber)
   let sortMethod = "";
   sorting === "relevance"
     ? (sortMethod = "")
-    : sorting === "low-high"
+    : sorting === "lowHigh"
     ? (sortMethod = "price")
     : (sortMethod = "-price");
 
   const providersFromDB = await Provider.find({}, { name: 1 });
   const providerNames = providersFromDB.map((provider) => provider.name);
 
-  !providers ? (providers = providerNames) : (providers = [providers]);
+  !providers ? (providers = providerNames) : (providers = providers.split(','));
 
 
   const coursesQuery = await Course.find({
@@ -36,7 +39,7 @@ router.get("/", async (req, res) => {
     ],
   })
     .populate("provider")
-    .limit(80).skip(10)
+    .limit(80)
     .sort(sortMethod);
   const toSend = coursesQuery.filter((course) => providers.some(p => p == course.provider.name))
 
@@ -47,10 +50,9 @@ router.get("/", async (req, res) => {
     ],
   }).sort("-price");
 
-  console.log();
 
   const response = {
-    courses: toSend,
+    courses: toSend.slice((pageNumber * 10 - 10), (pageNumber * 10)),
     providers: providerNames,
     maxPrice: courseWithMaxPrice.price,
     totalCourses: toSend.length,

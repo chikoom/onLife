@@ -6,7 +6,7 @@ const providerName = 'udemy'
 
 const sendUpdateToServer = (userId,providerName,progress,URL) => {
   $.ajax({
-    url: 'https://1201e47ef721.ngrok.io/extension/updateProgress/',
+    url: 'https://74258610eb20.ngrok.io/extension/updateProgress/',
     type: 'PUT',
     data: `progress=${progress}&userId=${userId}&providerName=${providerName}&courseURL=${URL}`,
     success: function(data) {
