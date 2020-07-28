@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
 const { parseUdemyScrape, parseUdemySingleCourseUrls, udemyPageActionsFunction } = require('./parseFunction/parseFunctionsUdemy')
 const { parseUdacityScrape, parseUdacitySingleCourseUrls, udacityPageActionsFunction} = require('./parseFunction/parseFunctionsUdacity')
+const Course = require('../models/Course')
 
 class Crawler {
     constructor() {
@@ -10,7 +11,7 @@ class Crawler {
                 provider: 'udemy',
                 scraping:
                 {
-                    url: "https://www.udemy.com/courses/development/web-development/?p=1",
+                    url: "https://www.udemy.com/courses/development/web-development/?p=2",
                     shortUrl: "https://www.udemy.com",
                     parseFnc: parseUdemyScrape,
                     singleCourseUrlParse: parseUdemySingleCourseUrls,
@@ -72,6 +73,18 @@ class Crawler {
 
     async RIPPC() {
         return await Promise.all(this.scrapeTemplates.map(s => this.scrapeCourseListPage(s.scraping)))
+    }
+
+    async saveAllReturnCourses() {
+        (await this.RIPPC())
+            .forEach(a => 
+                    a.forEach(c => {
+                        if (c === null) {
+                            return
+                        }
+                        const course = new Course(c)
+                        course.save()
+                    }))
     }
 }
 
