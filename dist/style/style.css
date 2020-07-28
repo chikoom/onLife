@@ -3,6 +3,8 @@
     --nav-height:50px;
     --shadow-light:#c5c5c5;
     --main-font:'Roboto', sans-serif;
+    --primary-color:#3f89d9;
+    --secondary-color:#e0e0e0;
 }
 *{
     padding:0;
@@ -70,7 +72,9 @@ nav{
 }
 .nav-container{
     display: grid;
-    grid-template-columns: 10fr 2fr;
+    grid-template-columns: 8fr 2fr 2fr;
+    justify-content: center;
+    align-content: center;
 }
 #logo-container{
   width: 150px;
@@ -100,6 +104,14 @@ nav{
 }
 .button-username{
 cursor: pointer;
+}
+.button-jobs{
+    background-color:#fff;
+    border:0;
+    outline:0;
+    font-weight: 900;
+    font-size: 16px;
+    cursor:pointer;
 }
 /** HOME PAGE **/
 .home-inner-container{
@@ -458,8 +470,11 @@ text-align: center;
     margin-left: 10px;
 }
 .search-inner-container-top{
+    margin-top: 20px;
     display: grid;
     grid-template-columns: 6fr 6fr;
+    width:75%;
+    margin-left:25%;
 }
 .search-inner-container-sorting{
 text-align:right;
@@ -472,11 +487,75 @@ text-align:right;
     background-color: #333;
     color:#fff;
 }
+.search-pagination-numbers{
+    margin-top:20px;
+}
+.loginSignup-wrapper{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    width:100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 999;
+    top:0;
+    left:0;
+    justify-content: center;
+    align-content: center;
+}
+.loginSignup-inner{
+width: 250px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 1px 1px 3px 0px #c5c5c5;
+    padding-bottom: 20px;
+    
+}
+.loginSignup-inner-buttons{
+ display: grid;
+    grid-template-columns: 6fr 6fr;
+}
+.loginSignup-inner-buttons button{
+    border:0;
+    outline:0;
+    padding: 20px 0;
+    cursor: pointer;
+}
+.button-signup-tab{
+    
+}
+.loginSignup-inner-form{
+    margin-top: 40px;
+}
+.loginSignup-inner-form input{
+    width:50%;
+    display: block;
+    padding: 7% 10%;
+    margin: 20px auto;
+    outline: 0;
+    border:0;
+    box-shadow: 1px 1px 3px 0px #c5c5c5; 
+}
 
-
-
-
-
+#loginSignup-button{
+margin: 0 auto;
+width:70%;
+    height: 50px;
+    box-shadow: 1px 1px 3px 0px #c5c5c5; 
+}
+.button_on{
+    background-color: var(--primary-color);
+    color:#fff;
+}
+#err-msg{
+    margin: 20px auto 0 auto;
+    width: 80%;
+    height: 30px;
+    font-size: 11px;
+    text-align: center;
+    color:#e41515;
+}
 
 
 

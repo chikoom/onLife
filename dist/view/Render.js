@@ -60,11 +60,13 @@ export class Render {
         $('.course-container').empty()
         $('.user-container').empty()
         $('.userCourses-container').empty()
+        $('.search-container-wrapper').hide()
         break
       case 'search':
         $('.home-container').empty()
         $('.course-container').empty()
         $('.user-container').empty()
+        $('.search-container-wrapper').show()
         break
       case 'course':
         $('.nav-searchbar').empty()
@@ -72,22 +74,36 @@ export class Render {
         $('.search-container').empty()
         $('.user-container').empty()
         $('.userCourses-container').empty()
+        $('.search-container-wrapper').hide()
         break
       case 'user':
         $('.nav-searchbar').empty()
         $('.home-container').empty()
         $('.search-container').empty()
         $('.course-container').empty()
+        $('.search-container-wrapper').hide()
         break
       case 'userCourses':
         $('.nav-searchbar').empty()
         $('.home-container').empty()
         $('.search-container').empty()
         $('.course-container').empty()
+        $('.search-container-wrapper').hide()
+        break
+      case 'loginSignup':
         break
       default:
         break
     }
+  }
+  renderLoginError(msg){
+    $('#err-msg').text(msg)
+  }
+  renderSuccessLogin(username){
+    $('#err-msg').text('')
+    $('.loginSignup-container').empty()
+    $('.button-login-signup').hide()
+    $('.button-username').text(username)
   }
   renderClearSearchFilters(){
   }
@@ -123,8 +139,8 @@ Handlebars.registerHelper('progressBar', function(opts) {
   return decNumber
 })
 
-Handlebars.registerHelper('checkChecked', function(currentProvider, checkedProviders) {
-  return "hey"
+Handlebars.registerHelper('descriptionShortner', function(opts) {
+  return opts.fn(this).substring(0,120)+'...'
 })
 
 Handlebars.registerHelper('priceFormater', function(opts) {
