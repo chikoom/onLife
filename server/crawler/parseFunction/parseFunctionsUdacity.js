@@ -28,7 +28,7 @@ const parseUdacitySingleCourseUrls = async ($) => {
         .find('div > ir-catalog-card > div > div > div > div > h3 > a')
         .toArray()
         .map(a => $(a).attr('href'))
-        .slice(17, 28)
+        .slice(36, 42)
 }
 
 const udacityPageActionsFunction = async (page) => {

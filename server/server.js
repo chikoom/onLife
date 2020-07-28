@@ -30,5 +30,5 @@ app.use("/auth", authRouter)
 
 const { PORT } = process.env
 app.listen(PORT, () => {
-console.log(`Server is up on port ${ PORT }`)
+    console.log(`Server is up on port ${PORT}`)
 })
