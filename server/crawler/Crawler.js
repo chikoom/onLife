@@ -10,7 +10,7 @@ class Crawler {
                 provider: 'udemy',
                 scraping:
                 {
-                    url: "https://www.udemy.com/courses/development/web-development/?p=4",
+                    url: "https://www.udemy.com/courses/development/web-development/?p=1",
                     shortUrl: "https://www.udemy.com",
                     parseFnc: parseUdemyScrape,
                     singleCourseUrlParse: parseUdemySingleCourseUrls,

@@ -6,7 +6,6 @@ const Provider = require("../../models/Provider");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  console.log(req.query);
   let searchQuery = req.query.q;
   let { minPrice } = req.query;
   let { maxPrice } = req.query;
@@ -18,7 +17,6 @@ router.get("/", async (req, res) => {
   maxPrice = maxPrice || 10000;
   pageNumber = pageNumber || 1
 
-console.log(pageNumber)
   let sortMethod = "";
   sorting === "relevance"
     ? (sortMethod = "")

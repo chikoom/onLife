@@ -11,7 +11,6 @@ export class App {
     
     this.appService = new AppService()
     this.currentLoggedUser = new User(loggedUser.loggedUser.userID, loggedUser.loggedUser.username)
-    console.log(this.currentLoggedUser)
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
@@ -60,8 +59,6 @@ export class App {
     return
   }
   logUserIn(username, userID){
-    console.log(username)
-    console.log(userID)
     this.currentLoggedUser.id = userID
     this.currentLoggedUser.username = username
     localStorage.setItem('onLife', JSON.stringify({loggedUser:{username,userID}}))

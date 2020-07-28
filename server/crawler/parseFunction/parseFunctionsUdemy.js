@@ -32,7 +32,7 @@ const parseUdemySingleCourseUrls = async ($) => {
         .toArray()
         .map(a => $(a).attr('href'))
         .filter(a => a !== 'https://business.udemy.com/request-demo/?ref=right-rail&locale=en_US')
-        .slice(0, 8)
+        .slice(6, 10)
 }
 
 module.exports =
