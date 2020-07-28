@@ -11,7 +11,6 @@ export class App {
     
     this.appService = new AppService()
     this.currentLoggedUser = new User(loggedUser.loggedUser.userID, loggedUser.loggedUser.username)
-    console.log(this.currentLoggedUser)
     this.searchCourseList = new CourseList()
     this.currentSingleCourse = {}
   }
