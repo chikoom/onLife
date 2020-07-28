@@ -41,7 +41,7 @@ router.get("/:userId", async (req, res) => {
         username,
         numberOfCourses,
         numOfCompletedCourses,
-        overallProgress,
+        overallProgress: overallProgress.toFixed(2) 
       };
 
       res.send(returnData);
@@ -67,6 +67,7 @@ router.get("/courses/:userId", async (req, res) => {
 });
 
 router.get("/jobs/:userId", async (req, res) => {
+
   let { userId } = req.params;
   let jobsArray = [];
   let searchDictionary = [

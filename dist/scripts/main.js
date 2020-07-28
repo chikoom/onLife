@@ -111,7 +111,7 @@ const handleLoginSignupButton = async function(){
 }
 
 const init = () => {
-  renderer.render('nav', app.currentLoggedUser)
+  renderer.render('nav', app.currentLoggedUser.username)
   renderer.render('home', {})
 }
 
