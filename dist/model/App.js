@@ -4,7 +4,11 @@ import { User } from '../model/User.js'
 
 export class App {
   constructor(){
-    let loggedUser = JSON.parse(localStorage.loggedUser) || {username:'', password:''}
+    let loggedUser =  {username:'', password:''}
+    if(localStorage.loggedUser){
+      loggedUser = JSON.parse(localStorage.loggedUser)
+    }
+    
     this.appService = new AppService()
     this.currentLoggedUser = new User(loggedUser.userID, loggedUser.userID.username)
     this.searchCourseList = new CourseList()
