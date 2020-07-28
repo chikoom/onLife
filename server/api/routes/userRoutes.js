@@ -41,7 +41,7 @@ router.get("/:userId", async (req, res) => {
         username,
         numberOfCourses,
         numOfCompletedCourses,
-        overallProgress,
+        overallProgress: overallProgress.toFixed(2) 
       };
 
       res.send(returnData);

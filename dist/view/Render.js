@@ -149,4 +149,8 @@ Handlebars.registerHelper('priceFormater', function(opts) {
   return priceNumber
 })
 
+Handlebars.registerHelper('twoPercent', function(opts) {
+  let total = opts.fn(this)
+  return `${(total * 100)}%`
+})
 

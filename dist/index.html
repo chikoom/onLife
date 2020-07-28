@@ -217,7 +217,7 @@
         <div class="user-container-analytics-info">
           <div class="user-container-analytics-total">Total courses: {{data.numberOfCourses}}</div>
           <div class="user-container-analytics-completed">Completed Courses: {{data.completedCourses}}</div>
-          <div class="user-container-analytics-overall">Overall progress: {{data.overallProgress}}</div>
+          <div class="user-container-analytics-overall">Overall progress: {{#twoPercent}} {{data.overallProgress}} {{/twoPercent}}</div>
         </div>
         <div class="user-container-analytics-chart">
           <div id="user-progress-chart" style="width: 100%; height:250px;"></div>
@@ -241,8 +241,8 @@
             <div class="user-course-provider-container provider-container">
               <a class="user-course-provider-link provider-link" href="{{course.provider.homepageURL}}" target="_blank">
                 <img class="user-course-provider-icon provider-icon" src="{{course.provider.iconURL}}" />
-                <span class="user-course-provider-by provider-by">by</span>
-                <span class="user-course-provider-name provider-name">{{course.provider.name}}</span>
+                <!-- <span class="user-course-provider-by provider-by">by</span> -->
+                <!-- <span class="user-course-provider-name provider-name">{{course.provider.name}}</span> -->
               </a>
             </div>
           </div>
