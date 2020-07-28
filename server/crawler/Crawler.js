@@ -1,11 +1,15 @@
 const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
 const { parseUdemyScrape, parseUdemySingleCourseUrls, udemyPageActionsFunction } = require('./parseFunction/parseFunctionsUdemy')
-const { parseUdacityScrape, parseUdacitySingleCourseUrls, udacityPageActionsFunction} = require('./parseFunction/parseFunctionsUdacity')
+const { parseUdacityScrape, parseUdacitySingleCourseUrls, udacityPageActionsFunction } = require('./parseFunction/parseFunctionsUdacity')
 const Course = require('../models/Course')
 
 class Crawler {
     constructor() {
+        this.args = [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+        ]
         this.scrapeTemplates = [
             {
                 provider: 'udemy',
@@ -34,7 +38,7 @@ class Crawler {
 
     async addSingleCourseByProviderName(providerName, endPoint) {
         const { shortUrl, parseFnc } = this.getScrapingTemplateByName(providerName).scraping
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({ args: this.args })
 
         return await this.SingleCourseScrape(browser, shortUrl, endPoint, parseFnc)
     }
@@ -49,7 +53,7 @@ class Crawler {
     async scrapeCourseListPage(scrapeTemplate) {
         const { url, singleCourseUrlParse, shortUrl, parseFnc, pageActions } = scrapeTemplate
 
-        const browser = await puppeteer.launch({ headless: false })
+        const browser = await puppeteer.launch({ args: this.args })
 
         const mainPage = await browser.newPage()
         await mainPage.goto(url, { waitUntil: 'networkidle2' })
@@ -77,14 +81,14 @@ class Crawler {
 
     async saveAllReturnCourses() {
         (await this.RIPPC())
-            .forEach(a => 
-                    a.forEach(c => {
-                        if (c === null) {
-                            return
-                        }
-                        const course = new Course(c)
-                        course.save()
-                    }))
+            .forEach(a =>
+                a.forEach(c => {
+                    if (c === null) {
+                        return
+                    }
+                    const course = new Course(c)
+                    course.save()
+                }))
     }
 }
 
