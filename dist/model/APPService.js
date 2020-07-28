@@ -8,4 +8,10 @@ export class AppService {
   async fetchUserCoursesFromDB(userId){
     return await $.get(`/api/user/courses/${userId}`)
   }
+  async signupToDB(userName, password){
+    return await $.post(`/auth/signup/`, {userName,password})
+  }
+  async loginToDB(userName, password){
+    return await $.post(`/auth/login/`, {userName,password})
+  }
 }

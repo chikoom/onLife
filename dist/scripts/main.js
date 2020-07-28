@@ -74,13 +74,56 @@ const handleGoToHome = function(){
   renderer.render('home', {})
 }
 
+const handleLoginSignup = function(){
+  console.log('loginsignup')
+  renderer.render('loginSignup', {})
+}
+
+const handleTabButton = function(){
+  console.log($(this).val())
+  $('.button-tab').toggleClass('button_on')
+  $('#loginSignup-button').val($(this).val())
+  $('#loginSignup-button').text($(this).val().toUpperCase())
+}
+
+const handleLoginSignupButton = async function(){
+  const buttonVal = $(this).val()
+  const username = $('#enter-username').val()
+  const password = $('#enter-pass').val()
+  if(username.length < 4){
+    renderer.renderLoginError('username should be above 4 letters')
+    return false
+  }
+  if(password.length < 4){
+    renderer.renderLoginError('password should be above 4 letters')
+    return false
+  }
+  app.loginSignup(buttonVal, username, password)
+    .then(res => {
+       app.logUserIn(res.userName, res.userID)
+       renderer.renderLoginError(`Hello ${res.userName}! Logged in!`)
+       window.setTimeout(function(){
+        renderer.renderSuccessLogin(res.userName)
+       },1000)
+      })
+    .catch(e => { renderer.renderLoginError(e.responseText) })
+}
+
 const init = () => {
   renderer.render('nav', {})
   renderer.render('home', {})
 }
 
-
-
+$('body').on('click', '.loginSignup-wrapper', function(){
+  console.log($(this))
+  if ($(this).hasClass('loginSignup-wrapper')){
+    $('.loginSignup-container').empty()
+  }
+  
+})
+$('body').on('click', '#loginSignup-button', handleLoginSignupButton)
+$('body').on('click', '.button-tab', handleTabButton)
+$('body').on('click', '.button-login-signup', handleLoginSignup)
 $('body').on('click','.page-number', handlePageClick)
 $('body').on('change','.checkbox-provider', handleSearch)
 $('body').on('click', '#select-sorting', handleSearch)
