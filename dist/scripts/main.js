@@ -114,6 +114,13 @@ const init = () => {
   renderer.render('home', {})
 }
 
+$('body').on('click', '.loginSignup-wrapper', function(){
+  console.log($(this))
+  if ($(this).hasClass('loginSignup-wrapper')){
+    $('.loginSignup-container').empty()
+  }
+  
+})
 $('body').on('click', '#loginSignup-button', handleLoginSignupButton)
 $('body').on('click', '.button-tab', handleTabButton)
 $('body').on('click', '.button-login-signup', handleLoginSignup)
