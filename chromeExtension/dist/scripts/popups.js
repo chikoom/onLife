@@ -1,5 +1,3 @@
-let loggedUser = { loggedUser: { userName: '', userID: '' } }
-
 $('.button-tab').click((event) => {
     const content = $(event.currentTarget).val()
     $('#loginSignup-button').text(content)
@@ -30,22 +28,15 @@ const renderLoginError = (msg) => {
     $('#err-msg').text(msg)
 }
 
-const renderSuccessLogin = (username) => {
+const renderSuccessLogin = (userName) => {
     $('#err-msg').text('')
-    $('.loginSignup-container').empty()
-    $('.button-login-signup').hide()
-    $('.button-username').text(username)
-}
-
-
-const logUserIn = (userName, userID) => {
-    loggedUser.loggedUser.userID = userID
-    loggedUser.loggedUser.userName = userName
-    localStorage.setItem('onLife', JSON.stringify({ loggedUser: { userName, userID } }))
+    $('.loginSignup-inner-form').empty()
+    $('#loginSignup-button').hide()
+    $('.loginSignup-inner-form').append($(`<h1 class="userName">Logged In as<br>${userName}</h1>`))
 }
 
 const handleUserLoginSignupSuccess = (res) => {
-    logUserIn(res.userName, res.userID)
+    chrome.storage.sync.set({ "userName": res.userName, "userID": res.userID }, () => { console.log('saved') })
     renderLoginError(`Hello ${res.userName}! Logged in!`)
     chrome.runtime.sendMessage(
         { userName: res.userName, userID: res.userID },

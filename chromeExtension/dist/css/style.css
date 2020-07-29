@@ -25,11 +25,19 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
+.userName {
+  position: absolute;
+  top: 100;
+  left: 15;
+  font-size: 36;
+}
+
 .loginSignup-inner {
   width: 81%;
   height: 141%;
   background-color: #fff;
   box-shadow: 3px 3px 20px 20px #c5c5c5 inset;
+  text-align: center;
 }
 
 .loginSignup-inner-buttons {
@@ -81,6 +89,15 @@ body {
   width: 75%;
   height: 50px;
   box-shadow: 1px 1px 3px 0px #c5c5c5;
+}
+
+#err-msg {
+  margin: 20px auto 0 auto;
+  width: 80%;
+  height: 30px;
+  font-size: 11px;
+  text-align: center;
+  color:#e41515;
 }
 
 .button-signup-tab {

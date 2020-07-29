@@ -1,7 +1,7 @@
 console.log('content udacity')
 
-let userName
-let userID
+// let userName
+// let userID
 
 chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
   userName = req.userName
