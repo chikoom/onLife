@@ -8,6 +8,9 @@ const express = require("express");
 const User = require("../../models/User");
 const Course = require("../../models/Course");
 const router = express.Router();
+const cors = require('cors')
+
+router.use(cors())
 
 router.put("/updateProgress", async (req, res) => {
   const { userId, providerName, courseURL, progress } = req.body;

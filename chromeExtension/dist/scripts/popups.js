@@ -38,15 +38,19 @@ const renderSuccessLogin = (username) => {
 }
 
 
-const logUserIn = (username, userID) => {
+const logUserIn = (userName, userID) => {
     loggedUser.loggedUser.userID = userID
-    loggedUser.loggedUser.userName = username
+    loggedUser.loggedUser.userName = userName
     localStorage.setItem('onLife', JSON.stringify({ loggedUser: { userName, userID } }))
 }
 
 const handleUserLoginSignupSuccess = (res) => {
     logUserIn(res.userName, res.userID)
     renderLoginError(`Hello ${res.userName}! Logged in!`)
+    chrome.runtime.sendMessage(
+        { userName: res.userName, userID: res.userID },
+        () => { console.log(`saved ${res.userName}, ${res.userID}`) }
+    )
     window.setTimeout(function () {
         renderSuccessLogin(res.userName)
     }, 1000)

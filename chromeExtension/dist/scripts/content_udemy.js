@@ -1,7 +1,17 @@
 console.log('content udemy')
 
-const exService = new ExtensionService()
-const userId = exService.currentUserId
+let userName
+let userID
+
+chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
+  userName = req.userName
+  userID = req.userID
+
+  sendRes({ msg: 'ok' })
+})
+
+// const exService = new ExtensionService()
+// const userId = exService.currentUserId
 const providerName = 'udemy'
 
 const sendUpdateToServer = (userId,providerName,progress,URL) => {
@@ -21,7 +31,7 @@ const getCurrentURL = () => {
   const learnIndex = currentFullURL.indexOf("/learn")
   const courseIndex = currentFullURL.indexOf("/course")
   const courseURL = currentFullURL.substring(0,learnIndex)
-  const shorterURL = courseURL.substring(courseIndex)
+  const shorterURL = courseURL.substring(21)
   return shorterURL
 }
 
@@ -42,13 +52,13 @@ $(document).ready( function(){
       const currentProgress = getProgressFromPage()
       const currentURL = getCurrentURL()
       console.log("SENDING")
-      sendUpdateToServer(userId,providerName,currentProgress,currentURL)
+      sendUpdateToServer(userID,providerName,currentProgress,currentURL)
       
       $('body').on('click', "[class^=next-and-previous--button]", function() {
         const currentProgress = getProgressFromPage()
         const currentURL = getCurrentURL()
         console.log("SENDING")
-        sendUpdateToServer(userId,providerName,currentProgress,currentURL)
+        sendUpdateToServer(userID,providerName,currentProgress,currentURL)
       })
   }, 3000 )
 })
