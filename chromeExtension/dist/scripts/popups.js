@@ -4,7 +4,7 @@ $('.button-tab').click((event) => {
     $('#loginSignup-button').val(content.toLowerCase())
 })
 
-$('#loginSignup-button').click(async () => {
+const handleLogInSignUpButton = () => {
     const userName = $('#enter-username').val()
     const password = $('#enter-pass').val()
 
@@ -16,7 +16,9 @@ $('#loginSignup-button').click(async () => {
         success: handleUserLoginSignupSuccess,
         error: handleUserLoginSignupError
     })
-})
+}
+
+$('#loginSignup-button').click(handleLogInSignUpButton)
 
 const checkIfUserLoggedIn = function () {
     if (localStorage.onLife) {
@@ -50,3 +52,12 @@ const handleUserLoginSignupSuccess = (res) => {
 const handleUserLoginSignupError = (e) => {
     renderLoginError(e.responseText)
 }
+
+const enterKeySearch = (e) => {
+    console.log(e.key, e.keyCode)
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        handleLogInSignUpButton()
+    }
+};
+
+$('body').on('keyup', enterKeySearch)
