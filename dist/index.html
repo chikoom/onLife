@@ -11,13 +11,24 @@
   <title>OnLife</title>
 </head>
 
-<body>
+<body class="light">
 
   <div id="root-container">
     <nav>
       <div id="logo-container">
         <img id="logo-nav" src="style/assets/web-logo-svg-07.svg">
         <h2 id="logo-header">OnLife</h2>
+      </div>
+      <div class="theme has-dropdown">
+        <a href="#">Theme</a>
+        <ul class="theme-dropdown">
+          <li class="dropdown-item">
+            <a id="light" href="#">Light</a>
+          </li>
+          <li class="dropdown-item">
+            <a id="dark" href="#">Dark</a>
+          </li>
+        </ul>
       </div>
       <div class="nav-container"></div>
     </nav>
@@ -103,6 +114,17 @@
   <!-- ---- TEMPLATE -----  NAV ------ -->
 
   <script id="nav-template" type="text/x-handlebars-template">
+    <!-- <div class="theme">
+      theme
+      <ul class="theme-dropdown">
+        <li class="dropdown-item">
+          <a id="light" href="#">Light</a>
+        </li>
+        <li class="dropdown-item">
+          <a id="dark" href="#">Dark</a>
+        </li>
+      </ul>
+    </div> -->
 
     <div class="nav-searchbar searchbar-container">
       <input id="input-nav-search" class="input-search" type="text" value="{{data.searchTerm}}">
@@ -114,15 +136,6 @@
         <button class="button-jobs"></button>
       </div>
     </div>
-    
-    <ul class="theme-dropdown">
-      <li class="dropdown-item">
-        <a id="light" href="#"></a>
-      </li>
-      <li class="dropdown-item">
-        <a id="dark" href="#"></a>
-      </li>
-    </ul>
 
     <div class="nav-loginSignup">
       <div class="nav-loginSignup-user">

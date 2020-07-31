@@ -119,6 +119,10 @@ const init = () => {
   renderer.render('home', {})
 }
 
+$('.theme-dropdown').on('click', '#dark, #light', () => {
+  $('body').toggleClass('light dark')
+})
+
 $('body').on('click', '#button-close-signup', function () {
   $('.loginSignup-container').empty()
 })
