@@ -3,6 +3,7 @@ const express = require("express");
 const User = require("../../models/User");
 const Course = require("../../models/Course");
 const Provider = require("../../models/Provider");
+const { response } = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -18,45 +19,57 @@ router.get("/", async (req, res) => {
   maxPrice = maxPrice || 10000;
   pageNumber = pageNumber || 1
 
-console.log(pageNumber)
+  console.log(pageNumber)
   let sortMethod = "";
   sorting === "relevance"
     ? (sortMethod = "")
     : sorting === "lowHigh"
-    ? (sortMethod = "price")
-    : (sortMethod = "-price");
+      ? (sortMethod = "price")
+      : (sortMethod = "-price");
 
   const providersFromDB = await Provider.find({}, { name: 1 });
   const providerNames = providersFromDB.map((provider) => provider.name);
 
   !providers ? (providers = providerNames) : (providers = providers.split(','));
 
+  try {
+    const coursesQuery = await Course.find({
+      $and: [
+        { name: { $regex: searchQuery, $options: "i" } },
+        { price: { $gte: minPrice, $lte: maxPrice } },
+      ],
+    })
+      .populate("provider")
+      .sort(sortMethod);
+    const toSend = coursesQuery.filter((course) => providers.some(p => p == course.provider.name))
 
-  const coursesQuery = await Course.find({
-    $and: [
-      { name: { $regex: searchQuery, $options: "i" } },
-      { price: { $gte: minPrice, $lte: maxPrice } },
-    ],
-  })
-    .populate("provider")
-    .sort(sortMethod);
-  const toSend = coursesQuery.filter((course) => providers.some(p => p == course.provider.name))
-
-  const courseWithMaxPrice = await Course.findOne({
-    $and: [
-      { name: { $regex: searchQuery, $options: "i" } },
-      { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] },
-    ],
-  }).sort("-price");
+    const courseWithMaxPrice = await Course.findOne({
+      $and: [
+        { name: { $regex: searchQuery, $options: "i" } },
+        { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] },
+      ],
+    }).sort("-price");
 
 
-  const response = {
-    courses: toSend.slice((pageNumber * 10 - 10), (pageNumber * 10)),
-    providers: providerNames,
-    maxPrice: courseWithMaxPrice.price,
-    totalCourses: toSend.length,
-  };
-  res.send(response);
+    const response = {
+      courses: toSend.slice((pageNumber * 10 - 10), (pageNumber * 10)),
+      providers: providerNames,
+      maxPrice: courseWithMaxPrice.price,
+      totalCourses: toSend.length,
+    };
+    
+    res.send(response);
+  }
+  catch (e) {
+    const response = {
+      courses: 'Sorry no courses with that name in our data base',
+      providers: providerNames,
+      maxPrice: 0,
+      totalCourses: 0,
+    };
+
+    res.send(response);
+  }
 });
 
 module.exports = router;
