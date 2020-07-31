@@ -3,6 +3,8 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
+const isDark = JSON.parse(localStorage.dark || 'false')
+
 let handleClick = false
 const handlePageClick = async function () {
   const currentFilters = app.getCurrentFilters()
@@ -115,12 +117,14 @@ const handleLoginSignupButton = async function () {
 }
 
 const init = () => {
+  $('body').addClass(isDark ? 'dark' : 'light')
   renderer.render('nav', { currentUser: app.currentLoggedUser.username })
   renderer.render('home', {})
 }
 
 $('.theme-dropdown').on('click', '#dark, #light', () => {
   $('body').toggleClass('light dark')
+  localStorage.dark = $('body').hasClass('dark') ? true : false
 })
 
 $('body').on('click', '#button-close-signup', function () {
