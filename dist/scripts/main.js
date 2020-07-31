@@ -12,12 +12,10 @@ const handlePageClick = async function () {
 }
 
 const enterKeySearch = (e) => {
-  console.log(e.key, e.keyCode)
   if (e.key === 'Enter' || e.keyCode === 13) {
     handleSearch()
   }
 };
-
 
 const handleSearch = async function () {
   const currentFilters = app.getCurrentFilters()
@@ -41,7 +39,7 @@ const handleSearch = async function () {
 
 
 
-  const searchQuery = $(this).siblings('.input-search').val() || app.getCurrentSeachTerm()
+  const searchQuery = $(this).siblings('.input-search').val()
   const searchResults = await app.getSearchResults(searchQuery, currentFilters.minPrice, currentFilters.maxPrice, currentFilters.sorting, currentFilters.currentPageNumber, currentFilters.selectedProviders)
 
 
