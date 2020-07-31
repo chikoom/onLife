@@ -1,107 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" 
-      type="image/png" 
-      href="favicon.png">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
   <link rel="stylesheet" href="./style/style.css">
   <title>OnLife</title>
 </head>
-<body>
+
+<body class="light">
 
   <div id="root-container">
     <nav>
       <div id="logo-container">
         <img id="logo-nav" src="style/assets/web-logo-svg-07.svg">
-        <h2 id="logo-header">Onlife</h2>
+        <h2 id="logo-header">OnLife</h2>
+      </div>
+      <div class="theme has-dropdown">
+        <a href="#">Theme</a>
+        <ul class="theme-dropdown">
+          <li class="dropdown-item">
+            <a id="light" href="#">Light</a>
+          </li>
+          <li class="dropdown-item">
+            <a id="dark" href="#">Dark</a>
+          </li>
+        </ul>
       </div>
       <div class="nav-container"></div>
     </nav>
     <main>
       <div class="home-container"></div>
       <div class="search-container-wrapper">
-        
-          <div class="search-inner-container centered">
-            <div class="search-inner-container-top">
-    
-              <div class="search-inner-container-pagination">
-                <div class="search-pagination-title">Showing <span id="field-total-results">XX</span> results for <strong><span id="field-serach-query">XX</span></strong></div>
-                <div class="search-pagination-numbers">1 2 3 4 5 ... 200</div>
-              </div>
-      
-              <div class="search-inner-container-sorting">
-                Sort by
-                <select id="select-sorting">
-                  <option value="relevance" selected="selected">Relevance</option>
-                  <option value="lowHigh">Lowest Price</option>
-                  <option value="highLow">Highest Price</option>
-                </select>
-              </div>
-      
+
+        <div class="search-inner-container centered">
+          <div class="search-inner-container-top">
+
+            <div class="search-inner-container-pagination">
+              <div class="search-pagination-title">Showing <span id="field-total-results">XX</span> results for
+                <strong><span id="field-serach-query">XX</span></strong></div>
+              <div class="search-pagination-numbers">1 2 3 4 5 ... 200</div>
             </div>
 
+            <div class="search-inner-container-sorting">
+              Sort by
+              <select id="select-sorting">
+                <option value="relevance" selected="selected">Relevance</option>
+                <option value="lowHigh">Lowest Price</option>
+                <option value="highLow">Highest Price</option>
+              </select>
+            </div>
 
-            <div class="filter-and-results">
-              <div class="search-filters">
-                <div class="search-filters-header-container filters-container">
-                  <div class="search-filters-title">
-                    <h3 class="search-filters-title-header filter-header-large">Filters</h3>
-                    <div class="search-filters-title-buttons">
-                      <span class="button-clear-all-filters">clear all</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-filters-price-container filters-container">
-                  <div class="search-filters-title">
-                    <h3 class="search-filters-title-header">Price</h3>
-                    <div class="search-filters-title-buttons">
-                      <span class="button-apply-filters">apply</span> |
-                      <span class="button-clear-filter-price">clear</span>
-                    </div>
-                  </div>
-                  <div class="search-filters-filters">
-                    <div class="slidecontainer">
-                      <input type="range" min="0" max="1000" value="1000" class="slider" id="filters-price-range">
-                    </div>
-                    <div class="price-min-max-container">
-                      <input type="number" placeholder="MIN" id="input-min-price" value="0">
-                      <span id="price-currency">USD</span>
-                      <input type="number" placeholder="MAX" id="input-max-price" value="100">
-                    </div>
-                  </div>
-                </div>
-                <div class="search-filters-provider-container filters-container">
-                  <div class="search-filters-title">
-                    <h3 class="search-filters-title-header">Providers</h3>
-                    <div class="search-filters-title-buttons">
-                      <span class="button-apply-filters">apply</span> |
-                      <span class="button-clear-filter-provider">clear</span>
-                    </div>
-                  </div>
-                  <div class="search-filters-providers">
+          </div>
+
+
+          <div class="filter-and-results">
+            <div class="search-filters">
+              <div class="search-filters-header-container filters-container">
+                <div class="search-filters-title">
+                  <h3 class="search-filters-title-header filter-header-large">Filters</h3>
+                  <div class="search-filters-title-buttons">
+                    <span class="button-clear-all-filters">clear all</span>
                   </div>
                 </div>
               </div>
+              <div class="search-filters-price-container filters-container">
+                <div class="search-filters-title">
+                  <h3 class="search-filters-title-header">Price</h3>
+                  <div class="search-filters-title-buttons">
+                    <span class="button-apply-filters">apply</span> |
+                    <span class="button-clear-filter-price">clear</span>
+                  </div>
+                </div>
+                <div class="search-filters-filters">
+                  <div class="slidecontainer">
+                    <input type="range" min="0" max="1000" value="1000" class="slider" id="filters-price-range">
+                  </div>
+                  <div class="price-min-max-container">
+                    <input type="number" placeholder="MIN" id="input-min-price" value="0">
+                    <span id="price-currency">USD</span>
+                    <input type="number" placeholder="MAX" id="input-max-price" value="100">
+                  </div>
+                </div>
+              </div>
+              <div class="search-filters-provider-container filters-container">
+                <div class="search-filters-title">
+                  <h3 class="search-filters-title-header">Providers</h3>
+                  <div class="search-filters-title-buttons">
+                    <span class="button-apply-filters">apply</span> |
+                    <span class="button-clear-filter-provider">clear</span>
+                  </div>
+                </div>
+                <div class="search-filters-providers">
+                </div>
+              </div>
+            </div>
             <div class="search-container"></div>
           </div>
+        </div>
       </div>
-    </div>
-      
-    
+
+
       <div class="course-container"></div>
       <div class="user-container"></div>
       <div class="userCourses-container"></div>
       <div class="loginSignup-container"></div>
     </main>
   </div>
-  
+
   <!-- ---- TEMPLATE -----  NAV ------ -->
 
   <script id="nav-template" type="text/x-handlebars-template">
-    
+    <!-- <div class="theme">
+      theme
+      <ul class="theme-dropdown">
+        <li class="dropdown-item">
+          <a id="light" href="#">Light</a>
+        </li>
+        <li class="dropdown-item">
+          <a id="dark" href="#">Dark</a>
+        </li>
+      </ul>
+    </div> -->
+
     <div class="nav-searchbar searchbar-container">
       <input id="input-nav-search" class="input-search" type="text" value="{{data.searchTerm}}">
       <button id="button-nav-search" class="button-search"><i class="fas fa-search"></i></button>
@@ -112,7 +136,7 @@
         <button class="button-jobs"></button>
       </div>
     </div>
-    
+
     <div class="nav-loginSignup">
       <div class="nav-loginSignup-user">
         {{#unless data.currentUser}}
@@ -145,7 +169,7 @@
   <!-- ---- TEMPLATE -----  SEARCH ------ -->
 
   <script id="search-template" type="text/x-handlebars-template">
-    
+
       {{#each data.courses.courses}}
         <div class="search-result-container" data-course-id="{{_id}}">
           <img class="search-result-image" onerror="this.src='https://res.cloudinary.com/chikoom/image/upload/v1595886669/OnLife/udacity_ikd76b.png';" src="{{imageURL}}" />
@@ -236,7 +260,7 @@
   <!-- ---- TEMPLATE -----  USER COURSES ------ -->
 
   <script id="userCourses-template" type="text/x-handlebars-template">
-    
+
     <div class="user-courses-inner centered">
       {{#each data.userCourses}}
         <div class="user-courses-course">
@@ -283,7 +307,7 @@
       
     </div>
   </script>
-  
+
   <!-- ---- TEMPLATE -----  LOGIN ------ -->
 
   <script id="loginSignup-template" type="text/x-handlebars-template">
@@ -310,4 +334,5 @@
   <script src="../jquery/dist/jquery.min.js"></script>
   <script src="./scripts/main.js" type="module"></script>
 </body>
+
 </html>
