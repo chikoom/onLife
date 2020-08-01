@@ -63,5 +63,10 @@ export class App {
     this.currentLoggedUser.username = username
     localStorage.setItem('onLife', JSON.stringify({loggedUser:{username,userID}}))
   }
+  logUserOut(){
+    this.currentLoggedUser = {loggedUser:{username:'',userID:''}}
+    localStorage.removeItem('onLife');
+  }
+
 }
 

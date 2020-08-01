@@ -763,3 +763,9 @@ padding: 30px;
 .course-container-link{
 margin-bottom: 20px;
 }
+.button-login-signup{
+  cursor: pointer;
+}
+.button-logout{
+  cursor: pointer;
+}
