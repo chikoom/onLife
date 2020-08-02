@@ -3,6 +3,8 @@ import { Render } from '../view/Render.js'
 const app = new App()
 const renderer = new Render()
 
+const isDark = JSON.parse(localStorage.dark || 'false')
+
 let handleClick = false
 const handlePageClick = async function () {
   const currentFilters = app.getCurrentFilters()
@@ -21,7 +23,6 @@ const handleSearch = async function () {
   const currentFilters = app.getCurrentFilters()
   if (!handleClick) {
     currentFilters.currentPageNumber = 1
-
   }
   handleClick = false
   currentFilters.minPrice = $('#input-min-price').val()
@@ -35,15 +36,13 @@ const handleSearch = async function () {
 
   currentFilters.selectedProviders = checkedProviders
 
+  const currentSearchTerm = $(this).closest('.searchbar-container').find('.input-search').val()
 
+  const searchQuery = (currentSearchTerm !== undefined) ?
+    currentSearchTerm
+    : app.getCurrentSeachTerm()
 
-
-
-  const searchQuery = $(this).siblings('.input-search').val()
   const searchResults = await app.getSearchResults(searchQuery, currentFilters.minPrice, currentFilters.maxPrice, currentFilters.sorting, currentFilters.currentPageNumber, currentFilters.selectedProviders)
-
-
-
   renderer.render('search', {
     courses: searchResults.courses,
     pageNumber: 1,
@@ -91,6 +90,11 @@ const handleTabButton = function () {
   $('#loginSignup-button').text($(this).val().toUpperCase())
 }
 
+const handleLogout = () => {
+  app.logUserOut()
+  init()
+}
+
 const handleLoginSignupButton = async function () {
   const buttonVal = $(this).val()
   const username = $('#enter-username').val()
@@ -109,19 +113,28 @@ const handleLoginSignupButton = async function () {
       renderer.renderLoginError(`Hello ${res.userName}! Logged in!`)
       window.setTimeout(function () {
         renderer.renderSuccessLogin(res.userName)
+        init()
       }, 1000)
     })
     .catch(e => { renderer.renderLoginError(e.responseText) })
 }
 
 const init = () => {
+  $('body').addClass(isDark ? 'dark' : 'light')
   renderer.render('nav', { currentUser: app.currentLoggedUser.username })
   renderer.render('home', {})
 }
 
+$('.theme-dropdown').on('click', '#dark, #light', () => {
+  $('body').toggleClass('light dark')
+  localStorage.dark = $('body').hasClass('dark') ? true : false
+})
+
 $('body').on('click', '#button-close-signup', function () {
   $('.loginSignup-container').empty()
 })
+
+$('body').on('click', '.button-logout', handleLogout)
 $('body').on('keyup', ".input-search", enterKeySearch)
 $('body').on('click', '#loginSignup-button', handleLoginSignupButton)
 $('body').on('click', '.button-tab', handleTabButton)
