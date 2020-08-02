@@ -53,7 +53,7 @@ class Crawler {
     async scrapeCourseListPage(scrapeTemplate) {
         const { url, singleCourseUrlParse, shortUrl, parseFnc, pageActions } = scrapeTemplate
 
-        const browser = await puppeteer.launch({ args: this.args })
+        const browser = await puppeteer.launch({ args: this.args, headless: false })
 
         const mainPage = await browser.newPage()
         await mainPage.goto(url, { waitUntil: 'networkidle2' })
