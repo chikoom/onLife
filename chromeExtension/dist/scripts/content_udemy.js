@@ -1,12 +1,6 @@
 console.log('content udemy')
-
-let userName
-let userID
-
-chrome.storage.sync.get(["userName", "userID"], (items) => {
-  userID = items.userID
-  userName = items.userName
-})
+const services = new ExtensionService()
+services.updateUserInfo()
 
 // const test = JSON.parse(localStorage.onLife)
 // console.log(test)
@@ -27,6 +21,7 @@ const sendUpdateToServer = (userId, providerName, progress, URL) => {
     type: 'PUT',
     data: `progress=${progress}&userId=${userId}&providerName=${providerName}&courseURL=${URL}`,
     success: function (data) {
+      chrome.browserAction.setBadgeText({ text: 'Saved!' });
       console.log("SENT")
       console.log(data)
     }
@@ -38,7 +33,7 @@ const getCurrentURL = () => {
   const learnIndex = currentFullURL.indexOf("/learn")
   const courseIndex = currentFullURL.indexOf("/course")
   const courseURL = currentFullURL.substring(0, learnIndex)
-  const shorterURL = courseURL.substring(21)
+  const shorterURL = courseURL.substring(courseIndex)
   return shorterURL
 }
 
@@ -59,13 +54,13 @@ $(document).ready(function () {
     const currentProgress = getProgressFromPage()
     const currentURL = getCurrentURL()
     console.log("SENDING")
-    sendUpdateToServer(userID, providerName, currentProgress, currentURL)
+    services.sendUpdateToServer(providerName, currentProgress, currentURL)
 
     $('body').on('click', "[class^=next-and-previous--button]", function () {
       const currentProgress = getProgressFromPage()
       const currentURL = getCurrentURL()
       console.log("SENDING")
-      sendUpdateToServer(userID, providerName, currentProgress, currentURL)
+      services.sendUpdateToServer(providerName, currentProgress, currentURL)
     })
   }, 3000)
 })
