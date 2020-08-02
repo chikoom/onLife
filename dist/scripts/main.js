@@ -23,7 +23,6 @@ const handleSearch = async function () {
   const currentFilters = app.getCurrentFilters()
   if (!handleClick) {
     currentFilters.currentPageNumber = 1
-
   }
   handleClick = false
   currentFilters.minPrice = $('#input-min-price').val()
@@ -37,15 +36,11 @@ const handleSearch = async function () {
 
   currentFilters.selectedProviders = checkedProviders
 
-
-
-
-
-  const searchQuery = $(this).siblings('.input-search').val()
+  const currentSearchTerm = $(this).closest('.searchbar-container').find('.input-search').val()
+  const searchQuery = (currentSearchTerm !== 'undefined') ?
+    currentSearchTerm
+    : app.getCurrentSeachTerm()
   const searchResults = await app.getSearchResults(searchQuery, currentFilters.minPrice, currentFilters.maxPrice, currentFilters.sorting, currentFilters.currentPageNumber, currentFilters.selectedProviders)
-
-
-
   renderer.render('search', {
     courses: searchResults.courses,
     pageNumber: 1,

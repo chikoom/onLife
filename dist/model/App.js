@@ -27,6 +27,12 @@ export class App {
   getCurrentSeachTerm(){
     return this.searchCourseList.searchTerm
   }
+  setCurrentSearchTerm(searchTerm){
+    this.searchCourseList.searchTerm = searchTerm
+  }
+  clearCurrentSearchTerm(){
+    this.searchCourseList.searchTerm = ''
+  }
 
   getSingleCourse = (courseId) => {
     return this.searchCourseList.getCourseById(courseId, false)
