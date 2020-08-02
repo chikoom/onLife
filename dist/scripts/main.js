@@ -37,9 +37,11 @@ const handleSearch = async function () {
   currentFilters.selectedProviders = checkedProviders
 
   const currentSearchTerm = $(this).closest('.searchbar-container').find('.input-search').val()
-  const searchQuery = (currentSearchTerm !== 'undefined') ?
+
+  const searchQuery = (currentSearchTerm !== undefined) ?
     currentSearchTerm
     : app.getCurrentSeachTerm()
+
   const searchResults = await app.getSearchResults(searchQuery, currentFilters.minPrice, currentFilters.maxPrice, currentFilters.sorting, currentFilters.currentPageNumber, currentFilters.selectedProviders)
   renderer.render('search', {
     courses: searchResults.courses,
