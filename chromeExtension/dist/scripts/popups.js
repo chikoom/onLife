@@ -35,6 +35,8 @@ const renderSuccessLogin = (userName) => {
     $('.loginSignup-inner-form').empty()
     $('#loginSignup-button').hide()
     $('.loginSignup-inner-form').append($(`<h1 class="userName">Logged In as<br>${userName}</h1>`))
+    chrome.browserAction.setBadgeText({ text: 'On' });
+    chrome.browserAction.setBadgeBackgroundColor({ color: '#4688F1' });
 }
 
 const handleUserLoginSignupSuccess = (res) => {
@@ -60,3 +62,7 @@ const enterKeySearch = (e) => {
 };
 
 $('body').on('keyup', enterKeySearch)
+
+chrome.runtime.onMessage.addListener(async(req, sender, sendRes) => {
+    await chrome.browserAction.setBadgeText({ text: 'Saved!' });
+})
