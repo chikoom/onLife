@@ -4,13 +4,14 @@ Link: [OnLife](https://onlife.herokuapp.com/)
 OnLife is a website that helps you keep track of your online courses and to explore more courses
 by diffrent filters and providers.
 
-OnLife also have a Chrome Extension which you can log into your account and when you go into
-a course page on the provider site it will add it to your user page on OnLife website (pictured tutorial below) .
+OnLife also has a Chrome Extension which you can login to and when go into
+a course page on the provider site it will add it to your user page on the OnLife website for you to 
+track your progress on (pictured tutorial below).
 
-Also OnLife offers your jobs by keywords from your saved courses on the OnLife user page.
+Also OnLife offers you jobs by keywords from your saved courses on the OnLife user page.
 
 OnLife is written in JavaScript with jQuery for the Client Side and NodeJS with Express for the backend
-also OnLife is using Puppeteer and cheerio for Crawling and Scraping tools.
+also OnLife is using Puppeteer and Cheerio for our crawling and scraping tools.
 
 env:
 ```
