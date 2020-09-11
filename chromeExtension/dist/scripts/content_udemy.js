@@ -2,17 +2,6 @@ console.log('content udemy')
 const services = new ExtensionService()
 services.updateUserInfo()
 
-// const test = JSON.parse(localStorage.onLife)
-// console.log(test)
-// chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
-//   userName = req.userName
-//   userID = req.userID
-
-//   sendRes({ msg: 'ok' })
-// })
-
-// const exService = new ExtensionService()
-// const userId = exService.currentUserId
 const providerName = 'udemy'
 
 const sendUpdateToServer = (userId, providerName, progress, URL) => {
@@ -23,7 +12,6 @@ const sendUpdateToServer = (userId, providerName, progress, URL) => {
     success: function (data) {
       chrome.browserAction.setBadgeText({ text: 'Saved!' });
       console.log("SENT")
-      console.log(data)
     }
   })
 }

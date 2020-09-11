@@ -54,7 +54,7 @@ router.put("/updateProgress", async (req, res) => {
         { new: true }
         );
         
-        res.send(updatedUser);
+        res.send('Saved Succesfully');
     } else {
         console.log(`User doesn't have this course`)
         await User.findOneAndUpdate(
@@ -68,7 +68,7 @@ router.put("/updateProgress", async (req, res) => {
           },
         }
       );
-      res.send('saved succesfully')
+      res.send('Saved Succesfully')
     }
   }
 });
