@@ -36,7 +36,7 @@ const handleSearch = async function () {
 
   currentFilters.selectedProviders = checkedProviders
 
-  const currentSearchTerm = $(this).closest('.searchbar-container').find('.input-search').val()
+  const currentSearchTerm = $('.input-search').val()
 
   const searchQuery = (currentSearchTerm !== undefined) ?
     currentSearchTerm

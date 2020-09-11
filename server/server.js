@@ -11,8 +11,8 @@ const coursesRouter = require("./api/routes/courseRoutes");
 const extensionRouter = require("./api/routes/extensionRoutes");
 const authRouter = require('./api/routes/authRoutes')
 const Crawler = require('./crawler/Crawler')
-
 require('dotenv').config()
+
 mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express()
