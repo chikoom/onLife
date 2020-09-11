@@ -17,10 +17,10 @@ router.get('/:userId', async (req, res) => {
       let userCoursesArray = user.courses
       let numberOfCourses = userCoursesArray.length
       let numOfCompletedCourses = user.courses.filter(
-        (course) => course.progress === 1
+        course => course.progress === 1
       ).length
       let overallProgress = 0
-      userCoursesArray.forEach((course) => (overallProgress += course.progress))
+      userCoursesArray.forEach(course => (overallProgress += course.progress))
       overallProgress /= numberOfCourses
       if (!numberOfCourses) {
         returnData = {
@@ -89,11 +89,11 @@ router.get('/jobs/:userId', async (req, res) => {
   })
   if (user.courses.length !== 0) {
     let courses = user.courses
-    let userCoursesKeywords = courses.map((item) => {
+    let userCoursesKeywords = courses.map(item => {
       return item.course.name.toLowerCase()
     })
     let AllKeywords = userCoursesKeywords.join(' ')
-    let searchParams = searchDictionary.filter((word) => {
+    let searchParams = searchDictionary.filter(word => {
       return AllKeywords.includes(word.toLowerCase())
     })
     if (searchParams.length !== 0) {
@@ -107,7 +107,7 @@ router.get('/jobs/:userId', async (req, res) => {
           }
           jobsArray = body
           let modifiedJobsArray = []
-          jobsArray.forEach((job) => {
+          jobsArray.forEach(job => {
             modifiedJobsArray.push({
               title: job.title,
               company: job.company,
