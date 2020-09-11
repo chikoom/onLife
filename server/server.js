@@ -3,14 +3,10 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const Course = require('./models/Course')
-const Provider = require('./models/Provider')
-const User = require('./models/User')
 const userRouter = require("./api/routes/userRoutes");
 const coursesRouter = require("./api/routes/courseRoutes");
 const extensionRouter = require("./api/routes/extensionRoutes");
 const authRouter = require('./api/routes/authRoutes')
-const Crawler = require('./crawler/Crawler')
 require('dotenv').config()
 
 mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })

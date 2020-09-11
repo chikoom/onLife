@@ -1,7 +1,6 @@
 const request = require('request')
 const express = require('express')
 const User = require('../../models/User')
-const Course = require('../../models/Course')
 const router = express.Router()
 
 router.get('/:userId', async (req, res) => {

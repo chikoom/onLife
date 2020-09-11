@@ -1,9 +1,4 @@
-// PUT /extension/progress/:userId/:providerId/:providerCourseId
-// updates the progress for a specific course
-// req.body.progress = number between 0 to 1
-// returns the updated object {course, progress}
 const Crawler = require("../../crawler/Crawler");
-const request = require("request");
 const express = require("express");
 const User = require("../../models/User");
 const Course = require("../../models/Course");
