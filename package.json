@@ -10,7 +10,7 @@
   "author": "Team",
   "license": "ISC",
   "dependencies": {
-    "@amcharts/amcharts4": "^4.9.33",
+    "@amcharts/amcharts4": "^4.10.28",
     "bcrypt": "^5.0.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
